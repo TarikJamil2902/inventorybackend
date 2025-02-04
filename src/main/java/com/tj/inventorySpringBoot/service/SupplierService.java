@@ -33,8 +33,12 @@ public class SupplierService {
 
             // Update the supplier's fields
             existingSupplier.setName(supplierDTO.getName());
-            existingSupplier.setContact(supplierDTO.getContact());
+            existingSupplier.setEmail(supplierDTO.getEmail()); // Use updated field
+            existingSupplier.setPhone(supplierDTO.getPhone());
             existingSupplier.setAddress(supplierDTO.getAddress());
+            existingSupplier.setPaymentTerms(supplierDTO.getPaymentTerms()); // New field
+            existingSupplier.setSupplierRating(supplierDTO.getSupplierRating()); // New field
+            existingSupplier.setStatus(supplierDTO.getStatus()); // New field
 
             Supplier updatedSupplier = supplierRepository.save(existingSupplier);
             return convertToDTO(updatedSupplier);
@@ -62,20 +66,28 @@ public class SupplierService {
     // Convert SupplierDTO to Supplier entity
     private Supplier convertToEntity(SupplierDTO supplierDTO) {
         Supplier supplier = new Supplier();
-        supplier.setId(supplierDTO.getId());
+        supplier.setSupplierId(supplierDTO.getSupplierId()); // Updated field
         supplier.setName(supplierDTO.getName());
-        supplier.setContact(supplierDTO.getContact());
+        supplier.setEmail(supplierDTO.getEmail()); // Updated field
+        supplierDTO.setPhone(supplier.getPhone());
         supplier.setAddress(supplierDTO.getAddress());
+        supplier.setPaymentTerms(supplierDTO.getPaymentTerms()); // New field
+        supplier.setSupplierRating(supplierDTO.getSupplierRating()); // New field
+        supplier.setStatus(supplierDTO.getStatus()); // New field
         return supplier;
     }
 
     // Convert Supplier entity to SupplierDTO
     private SupplierDTO convertToDTO(Supplier supplier) {
         SupplierDTO supplierDTO = new SupplierDTO();
-        supplierDTO.setId(supplier.getId());
+        supplierDTO.setSupplierId(supplier.getSupplierId()); // Updated field
         supplierDTO.setName(supplier.getName());
-        supplierDTO.setContact(supplier.getContact());
+        supplierDTO.setEmail(supplier.getEmail()); // Updated field
+        supplierDTO.setPhone(supplier.getPhone());
         supplierDTO.setAddress(supplier.getAddress());
+        supplierDTO.setPaymentTerms(supplier.getPaymentTerms()); // New field
+        supplierDTO.setSupplierRating(supplier.getSupplierRating()); // New field
+        supplierDTO.setStatus(supplier.getStatus()); // New field
         return supplierDTO;
     }
 }

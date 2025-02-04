@@ -1,29 +1,29 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDateTime;
+
 public class NotificationDTO {
 
-    private Long id;
-    private String title;     // e.g., "Low Stock Alert"
+    private Long notificationId;
+
     private String message;
-    private String type;      // The notification type as a string (INFO, WARNING, CRITICAL)
-    private Boolean isRead;
 
-    // No `createdTime`, `updatedTime` fields
+    private String status;
 
-    public Long getId() {
-        return id;
+    private LocalDateTime createdAt;
+
+    private String notificationType;
+
+    private String userName;
+
+    // Getters and Setters
+
+    public Long getNotificationId() {
+        return notificationId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNotificationId(Long notificationId) {
+        this.notificationId = notificationId;
     }
 
     public String getMessage() {
@@ -34,30 +34,35 @@ public class NotificationDTO {
         this.message = message;
     }
 
-    public String getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Boolean getRead() {
-        return isRead;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setRead(Boolean read) {
-        isRead = read;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Boolean getIsRead() {
-        return isRead;
+    public String getNotificationType() {
+        return notificationType;
     }
 
-    public void setIsRead(Boolean isRead) {
-        this.isRead = isRead;
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
     }
 
-    // Getters and setters
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
-

@@ -23,26 +23,26 @@ public class InventoryService {
     private InventoryRepository inventoryRepository;
 
     @Autowired
-    private ProductRepository productRepository; // To handle the relationship with Product entity
+    private ProductRepository productRepository;
 
     @Autowired
-    private WarehouseRepository warehouseRepository; // To handle the relationship with Warehouse entity
+    private WarehouseRepository warehouseRepository;
 
-    // Method to create a new inventory record
+    // Create a new inventory record
     public InventoryDTO createInventory(InventoryDTO inventoryDTO) {
         Inventory inventory = convertToEntity(inventoryDTO);
         Inventory savedInventory = inventoryRepository.save(inventory);
         return convertToDTO(savedInventory);
     }
 
-    // Method to update an existing inventory record
+    // Update an existing inventory record
     public InventoryDTO updateInventory(Long id, InventoryDTO inventoryDTO) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
         if (inventoryOptional.isPresent()) {
             Inventory inventory = inventoryOptional.get();
-            inventory.setQuantity(inventoryDTO.getQuantity());
+            inventory.setQuantityOnHand(inventoryDTO.getQuantityOnHand());
+            inventory.setQuantityAllocated(inventoryDTO.getQuantityAllocated());
 
-            // Update related Product and Warehouse
             if (inventoryDTO.getProductId() != null) {
                 Product product = productRepository.findById(inventoryDTO.getProductId()).orElse(null);
                 inventory.setProduct(product);
@@ -56,25 +56,22 @@ public class InventoryService {
             Inventory updatedInventory = inventoryRepository.save(inventory);
             return convertToDTO(updatedInventory);
         }
-        return null; // Or throw exception if inventory not found
+        return null;
     }
 
-    // Method to get all inventory records
+    // Get all inventory records
     public List<InventoryDTO> getAllInventories() {
         List<Inventory> inventories = inventoryRepository.findAll();
         return inventories.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    // Method to get an inventory record by its ID
+    // Get an inventory record by ID
     public InventoryDTO getInventoryById(Long id) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
-        if (inventoryOptional.isPresent()) {
-            return convertToDTO(inventoryOptional.get());
-        }
-        return null; // Or throw exception
+        return inventoryOptional.map(this::convertToDTO).orElse(null);
     }
 
-    // Method to delete an inventory record by its ID
+    // Delete an inventory record by ID
     public void deleteInventory(Long id) {
         inventoryRepository.deleteById(id);
     }
@@ -82,10 +79,11 @@ public class InventoryService {
     // Convert InventoryDTO to Inventory entity
     private Inventory convertToEntity(InventoryDTO inventoryDTO) {
         Inventory inventory = new Inventory();
-        inventory.setId(inventoryDTO.getId());
-        inventory.setQuantity(inventoryDTO.getQuantity());
+        inventory.setInventoryId(inventoryDTO.getInventoryId());
+        inventory.setQuantityOnHand(inventoryDTO.getQuantityOnHand());
+        inventory.setQuantityAllocated(inventoryDTO.getQuantityAllocated());
+        inventory.setQuantityAvailable(inventoryDTO.getQuantityAvailable());
 
-        // Fetch the related Product and Warehouse by their IDs
         if (inventoryDTO.getProductId() != null) {
             Product product = productRepository.findById(inventoryDTO.getProductId()).orElse(null);
             inventory.setProduct(product);
@@ -102,16 +100,17 @@ public class InventoryService {
     // Convert Inventory entity to InventoryDTO
     private InventoryDTO convertToDTO(Inventory inventory) {
         InventoryDTO inventoryDTO = new InventoryDTO();
-        inventoryDTO.setId(inventory.getId());
-        inventoryDTO.setQuantity(inventory.getQuantity());
+        inventoryDTO.setInventoryId(inventory.getInventoryId());
+        inventoryDTO.setQuantityOnHand(inventory.getQuantityOnHand());
+        inventoryDTO.setQuantityAllocated(inventory.getQuantityAllocated());
+        inventoryDTO.setQuantityAvailable(inventory.getQuantityAvailable());
 
-        // Include the Product and Warehouse IDs in the DTO
         if (inventory.getProduct() != null) {
-            inventoryDTO.setProductId(inventory.getProduct().getId());
+            inventoryDTO.setProductId(inventory.getProduct().getProductId());
         }
 
         if (inventory.getWarehouse() != null) {
-            inventoryDTO.setWarehouseId(inventory.getWarehouse().getId());
+            inventoryDTO.setWarehouseId(inventory.getWarehouse().getWarehouseId());
         }
 
         return inventoryDTO;

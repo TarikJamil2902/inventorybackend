@@ -31,6 +31,7 @@ public class PurchaseOrderItemService {
     // Create a new purchase order item
     public PurchaseOrderItemDTO createPurchaseOrderItem(PurchaseOrderItemDTO purchaseOrderItemDTO) {
         PurchaseOrderItem purchaseOrderItem = convertToEntity(purchaseOrderItemDTO);
+        calculateFinancials(purchaseOrderItemDTO); // Calculate financial fields
         PurchaseOrderItem savedPurchaseOrderItem = purchaseOrderItemRepository.save(purchaseOrderItem);
         return convertToDTO(savedPurchaseOrderItem);
     }
@@ -51,6 +52,9 @@ public class PurchaseOrderItemService {
             // Set the Product
             Product product = productRepository.findById(purchaseOrderItemDTO.getProductId()).orElse(null);
             existingPurchaseOrderItem.setProduct(product);
+
+            // Recalculate financial fields
+            calculateFinancials(purchaseOrderItemDTO);
 
             PurchaseOrderItem updatedPurchaseOrderItem = purchaseOrderItemRepository.save(existingPurchaseOrderItem);
             return convertToDTO(updatedPurchaseOrderItem);
@@ -76,6 +80,28 @@ public class PurchaseOrderItemService {
     // Delete a purchase order item by its ID
     public void deletePurchaseOrderItem(Long id) {
         purchaseOrderItemRepository.deleteById(id);
+    }
+
+    // Calculate financial fields (discount, tax, total cost)
+    private void calculateFinancials(PurchaseOrderItemDTO purchaseOrderItemDTO) {
+        Double costPerUnit = purchaseOrderItemDTO.getCostPerUnit();
+        Integer quantity = purchaseOrderItemDTO.getQuantity();
+        Double discount = purchaseOrderItemDTO.getDiscount();
+        Double taxRate = purchaseOrderItemDTO.getTaxRate();
+
+        // Calculate total cost without discount and tax
+        Double totalCost = costPerUnit * quantity;
+
+        // Calculate total cost after discount
+        Double totalCostAfterDiscount = totalCost - (totalCost * (discount / 100));
+
+        // Calculate total cost with tax
+        Double totalCostWithTax = totalCostAfterDiscount + (totalCostAfterDiscount * (taxRate / 100));
+
+        // Set calculated values in DTO
+        purchaseOrderItemDTO.setTotalCost(totalCost);
+        purchaseOrderItemDTO.setTotalCostAfterDiscount(totalCostAfterDiscount);
+        purchaseOrderItemDTO.setTotalCostWithTax(totalCostWithTax);
     }
 
     // Convert PurchaseOrderItemDTO to PurchaseOrderItem entity
@@ -105,13 +131,18 @@ public class PurchaseOrderItemService {
 
         // Set PurchaseOrder ID
         if (purchaseOrderItem.getPurchaseOrder() != null) {
-            purchaseOrderItemDTO.setPurchaseOrderId(purchaseOrderItem.getPurchaseOrder().getId());
+            purchaseOrderItemDTO.setPurchaseOrderId(purchaseOrderItem.getPurchaseOrder().getPurchaseOrderId());
         }
 
         // Set Product ID
         if (purchaseOrderItem.getProduct() != null) {
-            purchaseOrderItemDTO.setProductId(purchaseOrderItem.getProduct().getId());
+            purchaseOrderItemDTO.setProductId(purchaseOrderItem.getProduct().getProductId());
         }
+
+        // Set financial fields in DTO
+        purchaseOrderItemDTO.setTotalCost(purchaseOrderItem.getTotalCost());
+        purchaseOrderItemDTO.setTotalCostAfterDiscount(purchaseOrderItem.getTotalCostAfterDiscount());
+        purchaseOrderItemDTO.setTotalCostWithTax(purchaseOrderItem.getTotalCostWithTax());
 
         return purchaseOrderItemDTO;
     }

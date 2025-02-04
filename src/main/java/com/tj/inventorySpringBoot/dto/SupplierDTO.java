@@ -2,19 +2,25 @@ package com.tj.inventorySpringBoot.dto;
 
 public class SupplierDTO {
 
-    private Long id;
+    private Long supplierId;
     private String name;
-    private String contact;
+
+    private String email; // Updated field
+    private String phone; // Updated field
     private String address;
+    private String paymentTerms; // New field
+    private Double supplierRating; // New field
+    private String status; // New field
 
     // Excluding products, createdTime, and updatedTime from the DTO
 
-    public Long getId() {
-        return id;
+
+    public Long getSupplierId() {
+        return supplierId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
     }
 
     public String getName() {
@@ -25,12 +31,20 @@ public class SupplierDTO {
         this.name = name;
     }
 
-    public String getContact() {
-        return contact;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -41,5 +55,27 @@ public class SupplierDTO {
         this.address = address;
     }
 
-    // Getters and setters
+    public String getPaymentTerms() {
+        return paymentTerms;
+    }
+
+    public void setPaymentTerms(String paymentTerms) {
+        this.paymentTerms = paymentTerms;
+    }
+
+    public Double getSupplierRating() {
+        return supplierRating;
+    }
+
+    public void setSupplierRating(Double supplierRating) {
+        this.supplierRating = supplierRating;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

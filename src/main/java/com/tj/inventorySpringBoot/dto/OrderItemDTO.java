@@ -1,14 +1,17 @@
 package com.tj.inventorySpringBoot.dto;
 
+
+
 public class OrderItemDTO {
 
     private Long id;
     private Long orderId;    // Reference to the Order ID
     private Long productId;  // Reference to the Product ID
     private Integer quantity;
-    private Double price;    // Price of the product at the time of the order
-
-    // No `createdTime`, `updatedTime` fields
+    private Double unitPrice;  // Price of the product at the time of the order
+    private Double totalPrice; // Quantity * Unit Price
+    private Double discount;   // Discount applied to this item
+    private Double tax;        // Tax applied to this item
 
     public Long getId() {
         return id;
@@ -42,14 +45,35 @@ public class OrderItemDTO {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    // Getters and setters
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
+    }
 }
-

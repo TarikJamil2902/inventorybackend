@@ -33,8 +33,12 @@ public class PaymentService {
             payment.setAmount(paymentDTO.getAmount());
             payment.setPaymentMethod(paymentDTO.getPaymentMethod());
             payment.setPaymentStatus(paymentDTO.getPaymentStatus());
+            payment.setCurrency(paymentDTO.getCurrency());
+            payment.setTransactionId(paymentDTO.getTransactionId());
 
-            // Save updated payment
+            // Optionally, you can also update orderId and customerId if required
+            // Here, we assume that the associated Order and Customer are already set in the DTO
+
             Payment updatedPayment = paymentRepository.save(payment);
             return convertToDTO(updatedPayment);
         }
@@ -68,6 +72,12 @@ public class PaymentService {
         payment.setAmount(paymentDTO.getAmount());
         payment.setPaymentMethod(paymentDTO.getPaymentMethod());
         payment.setPaymentStatus(paymentDTO.getPaymentStatus());
+        payment.setCurrency(paymentDTO.getCurrency());
+        payment.setTransactionId(paymentDTO.getTransactionId());
+
+        // Fetch Order and Customer by their IDs
+        // For now, we're not setting these fields directly in this method,
+        // assuming that the paymentDTO will contain valid orderId and customerId
         return payment;
     }
 
@@ -78,10 +88,15 @@ public class PaymentService {
         paymentDTO.setAmount(payment.getAmount());
         paymentDTO.setPaymentMethod(payment.getPaymentMethod());
         paymentDTO.setPaymentStatus(payment.getPaymentStatus());
+        paymentDTO.setCurrency(payment.getCurrency());
+        paymentDTO.setTransactionId(payment.getTransactionId());
 
-        // Optionally set orderId if needed
+        // Optionally set orderId and customerId if needed
         if (payment.getOrder() != null) {
-            paymentDTO.setOrderId(payment.getOrder().getId());
+            paymentDTO.setOrderId(payment.getOrder().getOrderId());
+        }
+        if (payment.getCustomer() != null) {
+            paymentDTO.setCustomerId(payment.getCustomer().getCustomerId());
         }
 
         return paymentDTO;

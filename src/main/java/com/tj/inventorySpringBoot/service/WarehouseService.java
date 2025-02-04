@@ -2,6 +2,7 @@ package com.tj.inventorySpringBoot.service;
 
 import com.tj.inventorySpringBoot.dto.WarehouseDTO;
 import com.tj.inventorySpringBoot.entity.Warehouse;
+import com.tj.inventorySpringBoot.repository.EmployeeRepository;
 import com.tj.inventorySpringBoot.repository.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class WarehouseService {
     @Autowired
     private WarehouseRepository warehouseRepository;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     // Create a new warehouse
     public WarehouseDTO createWarehouse(WarehouseDTO warehouseDTO) {
         Warehouse warehouse = convertToEntity(warehouseDTO);
@@ -29,9 +33,13 @@ public class WarehouseService {
         if (existingWarehouseOptional.isPresent()) {
             Warehouse existingWarehouse = existingWarehouseOptional.get();
 
-            // Update fields
-            existingWarehouse.setName(warehouseDTO.getName());
-            existingWarehouse.setLocation(warehouseDTO.getLocation());
+            // Update fields with the new DTO fields
+            existingWarehouse.setWarehouseName(warehouseDTO.getWarehouseName());
+            existingWarehouse.setWarehouseAddress(warehouseDTO.getWarehouseAddress());
+            existingWarehouse.setCapacity(warehouseDTO.getCapacity());
+            existingWarehouse.setContactInfo(warehouseDTO.getContactInfo());
+            existingWarehouse.setStatus(warehouseDTO.getStatus());
+            existingWarehouse.setManager(employeeRepository.findById(warehouseDTO.getManagerId()).orElse(null));
 
             Warehouse updatedWarehouse = warehouseRepository.save(existingWarehouse);
             return convertToDTO(updatedWarehouse);
@@ -59,18 +67,26 @@ public class WarehouseService {
     // Convert WarehouseDTO to Warehouse entity
     private Warehouse convertToEntity(WarehouseDTO warehouseDTO) {
         Warehouse warehouse = new Warehouse();
-        warehouse.setId(warehouseDTO.getId());
-        warehouse.setName(warehouseDTO.getName());
-        warehouse.setLocation(warehouseDTO.getLocation());
+        warehouse.setWarehouseId(warehouseDTO.getWarehouseId());
+        warehouse.setWarehouseName(warehouseDTO.getWarehouseName());
+        warehouse.setWarehouseAddress(warehouseDTO.getWarehouseAddress());
+        warehouse.setCapacity(warehouseDTO.getCapacity());
+        warehouse.setContactInfo(warehouseDTO.getContactInfo());
+        warehouse.setStatus(warehouseDTO.getStatus());
+        warehouse.setManager(employeeRepository.findById(warehouseDTO.getManagerId()).get());
         return warehouse;
     }
 
     // Convert Warehouse entity to WarehouseDTO
     private WarehouseDTO convertToDTO(Warehouse warehouse) {
         WarehouseDTO warehouseDTO = new WarehouseDTO();
-        warehouseDTO.setId(warehouse.getId());
-        warehouseDTO.setName(warehouse.getName());
-        warehouseDTO.setLocation(warehouse.getLocation());
+        warehouseDTO.setWarehouseId(warehouse.getWarehouseId());
+        warehouseDTO.setWarehouseName(warehouse.getWarehouseName());
+        warehouseDTO.setWarehouseAddress(warehouse.getWarehouseAddress());
+        warehouseDTO.setCapacity(warehouse.getCapacity());
+        warehouseDTO.setContactInfo(warehouse.getContactInfo());
+        warehouseDTO.setStatus(warehouse.getStatus());
+        warehouseDTO.setManagerId(warehouse.getManager() != null ? warehouse.getManager().getEmployeeId() : null);
         return warehouseDTO;
     }
 }

@@ -1,20 +1,20 @@
 package com.tj.inventorySpringBoot.dto;
-
 public class InventoryDTO {
 
-    private Long id;
+    private Long inventoryId;
     private Long productId;    // Reference to the Product ID
     private Long warehouseId;  // Reference to the Warehouse ID
-    private Integer quantity;
+    private Integer quantityOnHand;
+    private Integer quantityAllocated;
+    private Integer quantityAvailable;
 
-    // No `createdTime`, `updatedTime` fields
-
-    public Long getId() {
-        return id;
+    // Getters and Setters
+    public Long getInventoryId() {
+        return inventoryId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setInventoryId(Long inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
     public Long getProductId() {
@@ -33,14 +33,27 @@ public class InventoryDTO {
         this.warehouseId = warehouseId;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getQuantityOnHand() {
+        return quantityOnHand;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setQuantityOnHand(Integer quantityOnHand) {
+        this.quantityOnHand = quantityOnHand;
     }
 
-    // Getters and setters
+    public Integer getQuantityAllocated() {
+        return quantityAllocated;
+    }
+
+    public void setQuantityAllocated(Integer quantityAllocated) {
+        this.quantityAllocated = quantityAllocated;
+    }
+
+    public Integer getQuantityAvailable() {
+        return quantityAvailable;
+    }
+
+    public void setQuantityAvailable(Integer quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
+    }
 }
-

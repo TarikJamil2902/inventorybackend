@@ -42,8 +42,13 @@ public class ReturnService {
             Return existingReturn = existingReturnOptional.get();
 
             // Update fields
-            existingReturn.setReason(returnDTO.getReason());
+            existingReturn.setReason(returnDTO.getReasonForReturn());
             existingReturn.setQuantity(returnDTO.getQuantity());
+            existingReturn.setReturnDate(returnDTO.getReturnDate());
+            existingReturn.setReturnStatus(returnDTO.getReturnStatus());
+            existingReturn.setAmountRefunded(returnDTO.getAmountRefunded());
+            existingReturn.setReturnType(returnDTO.getReturnType());
+            existingReturn.setRefundMethod(returnDTO.getRefundMethod());
 
             // Update associated customer order
             if (returnDTO.getCustomerOrderId() != null) {
@@ -87,9 +92,14 @@ public class ReturnService {
     // Convert ReturnDTO to Return entity
     private Return convertToEntity(ReturnDTO returnDTO) {
         Return returnEntity = new Return();
-        returnEntity.setId(returnDTO.getId());
-        returnEntity.setReason(returnDTO.getReason());
+        returnEntity.setReturnId(returnDTO.getReturnId());
+        returnEntity.setReason(returnDTO.getReasonForReturn());
         returnEntity.setQuantity(returnDTO.getQuantity());
+        returnEntity.setReturnDate(returnDTO.getReturnDate());
+        returnEntity.setReturnStatus(returnDTO.getReturnStatus());
+        returnEntity.setAmountRefunded(returnDTO.getAmountRefunded());
+        returnEntity.setReturnType(returnDTO.getReturnType());
+        returnEntity.setRefundMethod(returnDTO.getRefundMethod());
 
         // Set the associated customer order if it exists
         if (returnDTO.getCustomerOrderId() != null) {
@@ -109,18 +119,23 @@ public class ReturnService {
     // Convert Return entity to ReturnDTO
     private ReturnDTO convertToDTO(Return returnEntity) {
         ReturnDTO returnDTO = new ReturnDTO();
-        returnDTO.setId(returnEntity.getId());
-        returnDTO.setReason(returnEntity.getReason());
+        returnDTO.setReturnId((returnEntity.getReturnId()));
+        returnDTO.setReasonForReturn(returnEntity.getReason());
         returnDTO.setQuantity(returnEntity.getQuantity());
+        returnDTO.setReturnDate(returnEntity.getReturnDate());
+        returnDTO.setReturnStatus(returnEntity.getReturnStatus());
+        returnDTO.setAmountRefunded(returnEntity.getAmountRefunded());
+        returnDTO.setReturnType(returnEntity.getReturnType());
+        returnDTO.setRefundMethod(returnEntity.getRefundMethod());
 
         // Set the customer order ID if it exists
         if (returnEntity.getCustomerOrder() != null) {
-            returnDTO.setCustomerOrderId(returnEntity.getCustomerOrder().getId());
+            returnDTO.setCustomerOrderId(returnEntity.getCustomerOrder().getOrderId());
         }
 
         // Set the supplier return ID if it exists
         if (returnEntity.getSupplierReturn() != null) {
-            returnDTO.setSupplierReturnId(returnEntity.getSupplierReturn().getId());
+            returnDTO.setSupplierReturnId(returnEntity.getSupplierReturn().getPurchaseOrderId());
         }
 
         return returnDTO;

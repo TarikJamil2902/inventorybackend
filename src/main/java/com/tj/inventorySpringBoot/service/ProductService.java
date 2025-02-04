@@ -35,7 +35,14 @@ public class ProductService {
             product.setSize(productDTO.getSize());
             product.setColor(productDTO.getColor());
             product.setBrand(productDTO.getBrand());
-            product.setPrice(productDTO.getPrice());
+            product.setPrice(productDTO.getUnitPrice());  // Updated field for unit price
+            product.setCostPrice(productDTO.getCostPrice());  // Updated field for cost price
+            product.setQuantityInStock(productDTO.getQuantityInStock());  // Updated field for quantity in stock
+            product.setReorderLevel(productDTO.getReorderLevel());  // Updated field for reorder level
+
+            product.setBarcode(productDTO.getBarcode());  // Updated field for barcode
+            product.setStatus(productDTO.getStatus());  // Updated field for status
+            product.setImageUrl(productDTO.getImageUrl());  // Updated field for image URL
 
             // Update category if provided
             if (productDTO.getCategoryId() != null) {
@@ -73,13 +80,20 @@ public class ProductService {
     // Method to convert ProductDTO to Product entity
     private Product convertToEntity(ProductDTO productDTO) {
         Product product = new Product();
-        product.setId(productDTO.getId());
+        product.setProductId(productDTO.getProductId());
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setSize(productDTO.getSize());
         product.setColor(productDTO.getColor());
         product.setBrand(productDTO.getBrand());
-        product.setPrice(productDTO.getPrice());
+        product.setPrice(productDTO.getUnitPrice());  // Updated field for unit price
+        product.setCostPrice(productDTO.getCostPrice());  // Updated field for cost price
+        product.setQuantityInStock(productDTO.getQuantityInStock());  // Updated field for quantity in stock
+        product.setReorderLevel(productDTO.getReorderLevel());  // Updated field for reorder level
+
+        product.setBarcode(productDTO.getBarcode());  // Updated field for barcode
+        product.setStatus(productDTO.getStatus());  // Updated field for status
+        product.setImageUrl(productDTO.getImageUrl());  // Updated field for image URL
 
         // Set category if available
         if (productDTO.getCategoryId() != null) {
@@ -93,13 +107,20 @@ public class ProductService {
     // Method to convert Product entity to ProductDTO
     private ProductDTO convertToDTO(Product product) {
         ProductDTO productDTO = new ProductDTO();
-        productDTO.setId(product.getId());
+        productDTO.setProductId(product.getProductId());
         productDTO.setName(product.getName());
         productDTO.setDescription(product.getDescription());
         productDTO.setSize(product.getSize());
         productDTO.setColor(product.getColor());
         productDTO.setBrand(product.getBrand());
-        productDTO.setPrice(product.getPrice());
+        productDTO.setUnitPrice(product.getUnitPrice());  // Updated field for unit price
+        productDTO.setCostPrice(product.getCostPrice());  // Updated field for cost price
+        productDTO.setQuantityInStock(product.getQuantityInStock());  // Updated field for quantity in stock
+        productDTO.setReorderLevel(product.getReorderLevel());  // Updated field for reorder level
+      // Updated field for SKU
+        productDTO.setBarcode(product.getBarcode());  // Updated field for barcode
+        productDTO.setStatus(product.getStatus());  // Updated field for status
+        productDTO.setImageUrl(product.getImageUrl());  // Updated field for image URL
 
         // Set categoryId from associated category
         if (product.getCategory() != null) {

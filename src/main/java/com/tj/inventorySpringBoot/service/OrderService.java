@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 @Transactional
 public class OrderService {
@@ -41,11 +40,13 @@ public class OrderService {
             existingOrder.setCustomerContact(orderDTO.getCustomerContact());
             existingOrder.setTotalAmount(orderDTO.getTotalAmount());
             existingOrder.setStatus(OrderStatus.valueOf(orderDTO.getStatus()));
+
             // Update the order items
             if (orderDTO.getOrderItemIds() != null) {
                 List<OrderItem> orderItems = orderItemRepository.findAllById(orderDTO.getOrderItemIds());
                 existingOrder.setOrderItems(orderItems);
             }
+
             orderRepository.save(existingOrder);
             return convertToDTO(existingOrder);
         }
@@ -75,7 +76,7 @@ public class OrderService {
     // Convert OrderDTO to Order entity
     private Order convertToEntity(OrderDTO orderDTO) {
         Order order = new Order();
-        order.setId(orderDTO.getId());
+        order.setOrderId(orderDTO.getOrderId());
         order.setCustomerName(orderDTO.getCustomerName());
         order.setCustomerContact(orderDTO.getCustomerContact());
         order.setTotalAmount(orderDTO.getTotalAmount());
@@ -93,7 +94,7 @@ public class OrderService {
     // Convert Order entity to OrderDTO
     private OrderDTO convertToDTO(Order order) {
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setId(order.getId());
+        orderDTO.setOrderId(order.getOrderId());
         orderDTO.setCustomerName(order.getCustomerName());
         orderDTO.setCustomerContact(order.getCustomerContact());
         orderDTO.setTotalAmount(order.getTotalAmount());

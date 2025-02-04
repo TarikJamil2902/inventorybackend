@@ -8,17 +8,23 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  // payment_id
 
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private Double amount;
-    private String paymentMethod; // e.g., Credit Card, PayPal
-    private String paymentStatus; // e.g., PAID, PENDING, FAILED
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;  // customer_id
 
+    private Double amount;
+    private String paymentMethod; // e.g., credit card, cash, online
+    private String paymentStatus; // e.g., completed, pending, refunded
     private LocalDateTime paymentDate;
+
+    private String currency; // Currency used for the payment
+    private String transactionId; // For payment gateway tracking
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -48,6 +54,14 @@ public class Payment {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Double getAmount() {
@@ -82,6 +96,22 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public LocalDateTime getCreatedTime() {
         return createdTime;
     }
@@ -98,5 +128,5 @@ public class Payment {
         this.updatedTime = updatedTime;
     }
 
-    // Getters and setters
+
 }

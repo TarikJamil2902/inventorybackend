@@ -4,14 +4,17 @@ import com.tj.inventorySpringBoot.dto.PurchaseOrderDTO;
 import com.tj.inventorySpringBoot.entity.PurchaseOrder;
 import com.tj.inventorySpringBoot.entity.PurchaseOrderItem;
 import com.tj.inventorySpringBoot.entity.Supplier;
+import com.tj.inventorySpringBoot.entity.Employee;  // Added Employee entity for createdBy
 import com.tj.inventorySpringBoot.enums.PurchaseOrderStatus;
 import com.tj.inventorySpringBoot.repository.PurchaseOrderItemRepository;
 import com.tj.inventorySpringBoot.repository.PurchaseOrderRepository;
 import com.tj.inventorySpringBoot.repository.SupplierRepository;
+import com.tj.inventorySpringBoot.repository.EmployeeRepository;  // Added Employee repository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,9 +32,17 @@ public class PurchaseOrderService {
     @Autowired
     private PurchaseOrderItemRepository purchaseOrderItemRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;  // Injected Employee repository
+
     // Create a new purchase order
     public PurchaseOrderDTO createPurchaseOrder(PurchaseOrderDTO purchaseOrderDTO) {
         PurchaseOrder purchaseOrder = convertToEntity(purchaseOrderDTO);
+        purchaseOrder.setOrderDate(LocalDateTime.now());  // Setting order date
+        purchaseOrder.setDeliveryDate(purchaseOrderDTO.getDeliveryDate());  // Setting delivery date
+
+
+
         PurchaseOrder savedPurchaseOrder = purchaseOrderRepository.save(purchaseOrder);
         return convertToDTO(savedPurchaseOrder);
     }
@@ -43,7 +54,7 @@ public class PurchaseOrderService {
             PurchaseOrder existingPurchaseOrder = existingPurchaseOrderOptional.get();
 
             // Update fields
-            existingPurchaseOrder.setTotalCost(purchaseOrderDTO.getTotalCost());
+            existingPurchaseOrder.setTotalAmount(purchaseOrderDTO.getTotalAmount());
             existingPurchaseOrder.setStatus(PurchaseOrderStatus.valueOf(purchaseOrderDTO.getStatus()));
 
             // Update Supplier
@@ -53,6 +64,11 @@ public class PurchaseOrderService {
             // Update PurchaseOrderItems
             List<PurchaseOrderItem> purchaseOrderItems = purchaseOrderItemRepository.findAllById(purchaseOrderDTO.getPurchaseOrderItemIds());
             existingPurchaseOrder.setPurchaseOrderItems(purchaseOrderItems);
+
+            // Set updated delivery date
+            existingPurchaseOrder.setDeliveryDate(purchaseOrderDTO.getDeliveryDate());
+
+
 
             PurchaseOrder updatedPurchaseOrder = purchaseOrderRepository.save(existingPurchaseOrder);
             return convertToDTO(updatedPurchaseOrder);
@@ -83,8 +99,8 @@ public class PurchaseOrderService {
     // Convert PurchaseOrderDTO to PurchaseOrder entity
     private PurchaseOrder convertToEntity(PurchaseOrderDTO purchaseOrderDTO) {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setId(purchaseOrderDTO.getId());
-        purchaseOrder.setTotalCost(purchaseOrderDTO.getTotalCost());
+        purchaseOrder.setPurchaseOrderId(purchaseOrderDTO.getPurchaseOrderId());
+        purchaseOrder.setTotalAmount(purchaseOrderDTO.getTotalAmount());
         purchaseOrder.setStatus(PurchaseOrderStatus.valueOf(purchaseOrderDTO.getStatus()));
 
         // Set Supplier
@@ -95,19 +111,25 @@ public class PurchaseOrderService {
         List<PurchaseOrderItem> purchaseOrderItems = purchaseOrderItemRepository.findAllById(purchaseOrderDTO.getPurchaseOrderItemIds());
         purchaseOrder.setPurchaseOrderItems(purchaseOrderItems);
 
+
+
+        // Set Order Date and Delivery Date
+        purchaseOrder.setOrderDate(purchaseOrderDTO.getOrderDate());
+        purchaseOrder.setDeliveryDate(purchaseOrderDTO.getDeliveryDate());
+
         return purchaseOrder;
     }
 
     // Convert PurchaseOrder entity to PurchaseOrderDTO
     private PurchaseOrderDTO convertToDTO(PurchaseOrder purchaseOrder) {
         PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
-        purchaseOrderDTO.setId(purchaseOrder.getId());
-        purchaseOrderDTO.setTotalCost(purchaseOrder.getTotalCost());
+        purchaseOrderDTO.setPurchaseOrderId(purchaseOrder.getPurchaseOrderId());
+        purchaseOrderDTO.setTotalAmount(purchaseOrder.getTotalAmount());
         purchaseOrderDTO.setStatus(purchaseOrder.getStatus().name());
 
         // Set Supplier ID
         if (purchaseOrder.getSupplier() != null) {
-            purchaseOrderDTO.setSupplierId(purchaseOrder.getSupplier().getId());
+            purchaseOrderDTO.setSupplierId(purchaseOrder.getSupplier().getSupplierId());
         }
 
         // Set PurchaseOrderItem IDs
@@ -117,6 +139,12 @@ public class PurchaseOrderService {
                     .collect(Collectors.toList());
             purchaseOrderDTO.setPurchaseOrderItemIds(purchaseOrderItemIds);
         }
+
+
+
+        // Set Order Date and Delivery Date
+        purchaseOrderDTO.setOrderDate(purchaseOrder.getOrderDate());
+        purchaseOrderDTO.setDeliveryDate(purchaseOrder.getDeliveryDate());
 
         return purchaseOrderDTO;
     }

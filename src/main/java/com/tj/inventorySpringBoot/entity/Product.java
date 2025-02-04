@@ -1,13 +1,12 @@
 package com.tj.inventorySpringBoot.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -17,62 +16,56 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId; // product_id (Primary Key)
 
     private String name;
     private String description;
-    private String size;
-    private String color;
-    private String brand;
-    private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id") // This column will be created in the Product table
+    private Category category; // Foreign Key - Links to Category
 
     @ManyToOne
     @JoinColumn(name = "supplier_id") // This column will be created in the Product table
-    private Supplier supplier; // This field will represent the relationship to Supplier
+    private Supplier supplier; // Foreign Key - Links to Supplier
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private String size;  // e.g., "S", "M", "L", "XL"
+    private String color;
+    private String brand;
+    private Double unitPrice;  // unit_price
+    private Double costPrice;  // cost_price
+    private Integer quantityInStock;  // quantity_in_stock
+    private Integer reorderLevel;
+
+   // reorder_level
+   private Double price;
+    private String barcode; // barcode
+    private String status; // status (e.g., active, discontinued)
+    private String imageUrl; // image_url
+
+    private LocalDateTime createdAt; // created_at
+    private LocalDateTime updatedAt; // updated_at
 
     @OneToMany(mappedBy = "product")
     private List<Inventory> inventories;
 
-    private LocalDateTime createdTime;
-    private LocalDateTime updatedTime;
-
     @PrePersist
     protected void onCreate() {
-        this.createdTime = LocalDateTime.now();
-        this.updatedTime = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedTime = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getSize() {
@@ -107,12 +100,20 @@ public class Product {
         this.price = price;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public String getName() {
+        return name;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Category getCategory() {
@@ -123,27 +124,91 @@ public class Product {
         this.category = category;
     }
 
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(Double costPrice) {
+        this.costPrice = costPrice;
+    }
+
+    public Integer getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(Integer quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
+
+    public Integer getReorderLevel() {
+        return reorderLevel;
+    }
+
+    public void setReorderLevel(Integer reorderLevel) {
+        this.reorderLevel = reorderLevel;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public List<Inventory> getInventories() {
         return inventories;
     }
 
     public void setInventories(List<Inventory> inventories) {
         this.inventories = inventories;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
     }
 }

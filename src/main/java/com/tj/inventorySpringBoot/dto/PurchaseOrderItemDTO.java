@@ -7,6 +7,11 @@ public class PurchaseOrderItemDTO {
     private Long productId;  // Reference to the Product ID
     private Integer quantity;
     private Double costPerUnit;
+    private Double discount;  // Discount on the item
+    private Double taxRate;  // Tax rate applicable to the item
+    private Double totalCost;  // Total cost without discount and tax
+    private Double totalCostAfterDiscount;  // Total cost after discount
+    private Double totalCostWithTax;  // Total cost with tax included
 
     // No `createdTime`, `updatedTime` fields
 
@@ -50,6 +55,43 @@ public class PurchaseOrderItemDTO {
         this.costPerUnit = costPerUnit;
     }
 
-    // Getters and setters
-}
+    public Double getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(Double taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public Double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public Double getTotalCostAfterDiscount() {
+        return totalCostAfterDiscount;
+    }
+
+    public void setTotalCostAfterDiscount(Double totalCostAfterDiscount) {
+        this.totalCostAfterDiscount = totalCostAfterDiscount;
+    }
+
+    public Double getTotalCostWithTax() {
+        return totalCostWithTax;
+    }
+
+    public void setTotalCostWithTax(Double totalCostWithTax) {
+        this.totalCostWithTax = totalCostWithTax;
+    }
+}

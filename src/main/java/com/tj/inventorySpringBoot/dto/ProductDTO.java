@@ -1,8 +1,5 @@
 package com.tj.inventorySpringBoot.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
 
 @Getter
@@ -11,23 +8,29 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductDTO {
 
-    private Long id;
+    private Long productId; // product_id
     private String name;
     private String description;
     private String size;  // e.g., "S", "M", "L", "XL"
     private String color;
     private String brand;
-    private Double price;
+    private Double unitPrice;  // unit_price
+    private Double costPrice;  // cost_price
+    private Integer quantityInStock;  // quantity_in_stock
+    private Integer reorderLevel;  // reorder_level
+
+    private String barcode;  // Barcode
+    private String status;  // e.g., active, discontinued
+    private String imageUrl;  // image_url
     private Long categoryId;  // Reference to the Category ID
+    private Long supplierId;  // Reference to the Supplier ID
 
-    // No `createdTime`, `updatedTime` fields
-
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -70,12 +73,60 @@ public class ProductDTO {
         this.brand = brand;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(Double costPrice) {
+        this.costPrice = costPrice;
+    }
+
+    public Integer getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(Integer quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
+
+    public Integer getReorderLevel() {
+        return reorderLevel;
+    }
+
+    public void setReorderLevel(Integer reorderLevel) {
+        this.reorderLevel = reorderLevel;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Long getCategoryId() {
@@ -86,5 +137,11 @@ public class ProductDTO {
         this.categoryId = categoryId;
     }
 
-    // Getters and setters
+    public Long getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
 }

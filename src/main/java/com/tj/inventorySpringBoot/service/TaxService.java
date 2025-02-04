@@ -32,8 +32,13 @@ public class TaxService {
             Tax existingTax = existingTaxOptional.get();
 
             // Update the fields of the existing tax
-            existingTax.setName(taxDTO.getName());
+            existingTax.setTaxType(taxDTO.getTaxType());
             existingTax.setRate(taxDTO.getRate());
+            existingTax.setDescription(taxDTO.getDescription());
+            existingTax.setTaxCategory(taxDTO.getTaxCategory());
+            existingTax.setIsActive(taxDTO.getIsActive());
+            existingTax.setEffectiveFrom(taxDTO.getEffectiveFrom());
+            existingTax.setEffectiveTill(taxDTO.getEffectiveTill());
 
             Tax updatedTax = taxRepository.save(existingTax);
             return convertToDTO(updatedTax);
@@ -61,18 +66,28 @@ public class TaxService {
     // Convert TaxDTO to Tax entity
     private Tax convertToEntity(TaxDTO taxDTO) {
         Tax tax = new Tax();
-        tax.setId(taxDTO.getId());
-        tax.setName(taxDTO.getName());
+        tax.setTaxId(taxDTO.getTaxId());
+        tax.setTaxType(taxDTO.getTaxType());
         tax.setRate(taxDTO.getRate());
+        tax.setDescription(taxDTO.getDescription());
+        tax.setTaxCategory(taxDTO.getTaxCategory());
+        tax.setIsActive(taxDTO.getIsActive());
+        tax.setEffectiveFrom(taxDTO.getEffectiveFrom());
+        tax.setEffectiveTill(taxDTO.getEffectiveTill());
         return tax;
     }
 
     // Convert Tax entity to TaxDTO
     private TaxDTO convertToDTO(Tax tax) {
         TaxDTO taxDTO = new TaxDTO();
-        taxDTO.setId(tax.getId());
-        taxDTO.setName(tax.getName());
+        taxDTO.setTaxId(tax.getTaxId());
+        taxDTO.setTaxType(tax.getTaxType());
         taxDTO.setRate(tax.getRate());
+        taxDTO.setDescription(tax.getDescription());
+        taxDTO.setTaxCategory(tax.getTaxCategory());
+        taxDTO.setIsActive(tax.getIsActive());
+        taxDTO.setEffectiveFrom(tax.getEffectiveFrom());
+        taxDTO.setEffectiveTill(tax.getEffectiveTill());
         return taxDTO;
     }
 }

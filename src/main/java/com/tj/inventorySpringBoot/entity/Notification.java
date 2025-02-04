@@ -4,49 +4,39 @@ import com.tj.inventorySpringBoot.enums.NotificationType;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
+
+
 @Entity
 public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long notificationId;
 
-    private String title; // e.g., "Low Stock Alert"
     private String message;
 
+    private String status;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
     @Enumerated(EnumType.STRING)
-    private NotificationType type; // INFO, WARNING, CRITICAL
+    private NotificationType notificationType;
 
-    private Boolean isRead = false;
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
-    private LocalDateTime createdTime;
-    private LocalDateTime updatedTime;
+    // Getters and Setters
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdTime = LocalDateTime.now();
-        this.updatedTime = LocalDateTime.now();
+    public Long getNotificationId() {
+        return notificationId;
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedTime = LocalDateTime.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNotificationId(Long notificationId) {
+        this.notificationId = notificationId;
     }
 
     public String getMessage() {
@@ -57,38 +47,43 @@ public class Notification {
         this.message = message;
     }
 
-    public NotificationType getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(NotificationType type) {
-        this.type = type;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Boolean getIsRead() {
-        return isRead;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setIsRead(Boolean read) {
-        isRead = read;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
+    public NotificationType getNotificationType() {
+        return notificationType;
     }
 
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
+    public void setNotificationType(NotificationType notificationType) {
+        this.notificationType = notificationType;
     }
 
+    public User getUser() {
+        return user;
+    }
 
-    // Getters and setters
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -41,7 +41,16 @@ public class OrderItemService {
         if (existingOrderItem.isPresent()) {
             OrderItem orderItem = existingOrderItem.get();
             orderItem.setQuantity(orderItemDTO.getQuantity());
-            orderItem.setPrice(orderItemDTO.getPrice());
+            orderItem.setUnitPrice(orderItemDTO.getUnitPrice());
+            orderItem.setTotalPrice(orderItemDTO.getQuantity() * orderItemDTO.getUnitPrice());  // Calculate total price
+
+            // Set discount and tax if available
+            if (orderItemDTO.getDiscount() != null) {
+                orderItem.setDiscount(orderItemDTO.getDiscount());
+            }
+            if (orderItemDTO.getTax() != null) {
+                orderItem.setTax(orderItemDTO.getTax());
+            }
 
             // Update Order and Product if they exist
             Optional<Order> order = orderRepository.findById(orderItemDTO.getOrderId());
@@ -85,7 +94,16 @@ public class OrderItemService {
         OrderItem orderItem = new OrderItem();
         orderItem.setId(orderItemDTO.getId());
         orderItem.setQuantity(orderItemDTO.getQuantity());
-        orderItem.setPrice(orderItemDTO.getPrice());
+        orderItem.setUnitPrice(orderItemDTO.getUnitPrice());
+        orderItem.setTotalPrice(orderItemDTO.getQuantity() * orderItemDTO.getUnitPrice());  // Calculate total price
+
+        // Set discount and tax if available
+        if (orderItemDTO.getDiscount() != null) {
+            orderItem.setDiscount(orderItemDTO.getDiscount());
+        }
+        if (orderItemDTO.getTax() != null) {
+            orderItem.setTax(orderItemDTO.getTax());
+        }
 
         // Fetch Order and Product
         Optional<Order> order = orderRepository.findById(orderItemDTO.getOrderId());
@@ -102,13 +120,22 @@ public class OrderItemService {
         OrderItemDTO orderItemDTO = new OrderItemDTO();
         orderItemDTO.setId(orderItem.getId());
         orderItemDTO.setQuantity(orderItem.getQuantity());
-        orderItemDTO.setPrice(orderItem.getPrice());
+        orderItemDTO.setUnitPrice(orderItem.getUnitPrice());
+        orderItemDTO.setTotalPrice(orderItem.getTotalPrice());
+
+        // Set discount and tax if available
+        if (orderItem.getDiscount() != null) {
+            orderItemDTO.setDiscount(orderItem.getDiscount());
+        }
+        if (orderItem.getTax() != null) {
+            orderItemDTO.setTax(orderItem.getTax());
+        }
 
         if (orderItem.getOrder() != null) {
-            orderItemDTO.setOrderId(orderItem.getOrder().getId());
+            orderItemDTO.setOrderId(orderItem.getOrder().getOrderId());
         }
         if (orderItem.getProduct() != null) {
-            orderItemDTO.setProductId(orderItem.getProduct().getId());
+            orderItemDTO.setProductId(orderItem.getProduct().getProductId());
         }
 
         return orderItemDTO;

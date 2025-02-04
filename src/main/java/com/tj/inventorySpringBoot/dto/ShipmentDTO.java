@@ -5,13 +5,18 @@ import java.time.LocalDateTime;
 public class ShipmentDTO {
 
     private Long id;
-    private Long orderId; // ID of the associated order
+    private Long orderId;
+    private LocalDateTime shippingDate;
+    private LocalDateTime deliveryDate;
+    private String carrierName;
     private String trackingNumber;
-    private String carrier; // e.g., FedEx, DHL
-    private LocalDateTime shippedDate;
-    private LocalDateTime estimatedDeliveryDate;
+    private String shipmentStatus;
+    private String deliveryAddress;
+    private Double shippingCost;
 
-    // Excluding createdTime and updatedTime from the DTO
+
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -29,6 +34,30 @@ public class ShipmentDTO {
         this.orderId = orderId;
     }
 
+    public LocalDateTime getShippingDate() {
+        return shippingDate;
+    }
+
+    public void setShippingDate(LocalDateTime shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getCarrierName() {
+        return carrierName;
+    }
+
+    public void setCarrierName(String carrierName) {
+        this.carrierName = carrierName;
+    }
+
     public String getTrackingNumber() {
         return trackingNumber;
     }
@@ -37,30 +66,29 @@ public class ShipmentDTO {
         this.trackingNumber = trackingNumber;
     }
 
-    public String getCarrier() {
-        return carrier;
+    public String getShipmentStatus() {
+        return shipmentStatus;
     }
 
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
+    public void setShipmentStatus(String shipmentStatus) {
+        this.shipmentStatus = shipmentStatus;
     }
 
-    public LocalDateTime getShippedDate() {
-        return shippedDate;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setShippedDate(LocalDateTime shippedDate) {
-        this.shippedDate = shippedDate;
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
-    public LocalDateTime getEstimatedDeliveryDate() {
-        return estimatedDeliveryDate;
+    public Double getShippingCost() {
+        return shippingCost;
     }
 
-    public void setEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
+    public void setShippingCost(Double shippingCost) {
+        this.shippingCost = shippingCost;
     }
 
-    // Getters and setters
+
 }
-

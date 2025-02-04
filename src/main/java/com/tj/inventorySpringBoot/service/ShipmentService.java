@@ -38,9 +38,12 @@ public class ShipmentService {
 
             // Update shipment details
             existingShipment.setTrackingNumber(shipmentDTO.getTrackingNumber());
-            existingShipment.setCarrier(shipmentDTO.getCarrier());
-            existingShipment.setShippedDate(shipmentDTO.getShippedDate());
-            existingShipment.setEstimatedDeliveryDate(shipmentDTO.getEstimatedDeliveryDate());
+            existingShipment.setCarrierName(shipmentDTO.getCarrierName());
+            existingShipment.setShippingDate(shipmentDTO.getShippingDate());
+            existingShipment.setDeliveryDate(shipmentDTO.getDeliveryDate());
+            existingShipment.setShipmentStatus(shipmentDTO.getShipmentStatus());
+            existingShipment.setDeliveryAddress(shipmentDTO.getDeliveryAddress());
+            existingShipment.setShippingCost(shipmentDTO.getShippingCost());
 
             // Update associated Order entity if provided
             if (shipmentDTO.getOrderId() != null) {
@@ -76,9 +79,12 @@ public class ShipmentService {
         Shipment shipment = new Shipment();
         shipment.setId(shipmentDTO.getId());
         shipment.setTrackingNumber(shipmentDTO.getTrackingNumber());
-        shipment.setCarrier(shipmentDTO.getCarrier());
-        shipment.setShippedDate(shipmentDTO.getShippedDate());
-        shipment.setEstimatedDeliveryDate(shipmentDTO.getEstimatedDeliveryDate());
+        shipment.setCarrierName(shipmentDTO.getCarrierName());
+        shipment.setShippingDate(shipmentDTO.getShippingDate());
+        shipment.setDeliveryDate(shipmentDTO.getDeliveryDate());
+        shipment.setShipmentStatus(shipmentDTO.getShipmentStatus());
+        shipment.setDeliveryAddress(shipmentDTO.getDeliveryAddress());
+        shipment.setShippingCost(shipmentDTO.getShippingCost());
 
         // Set associated Order entity
         if (shipmentDTO.getOrderId() != null) {
@@ -94,13 +100,16 @@ public class ShipmentService {
         ShipmentDTO shipmentDTO = new ShipmentDTO();
         shipmentDTO.setId(shipment.getId());
         shipmentDTO.setTrackingNumber(shipment.getTrackingNumber());
-        shipmentDTO.setCarrier(shipment.getCarrier());
-        shipmentDTO.setShippedDate(shipment.getShippedDate());
-        shipmentDTO.setEstimatedDeliveryDate(shipment.getEstimatedDeliveryDate());
+        shipmentDTO.setCarrierName(shipment.getCarrierName());
+        shipmentDTO.setShippingDate(shipment.getShippingDate());
+        shipmentDTO.setDeliveryDate(shipment.getDeliveryDate());
+        shipmentDTO.setShipmentStatus(shipment.getShipmentStatus());
+        shipmentDTO.setDeliveryAddress(shipment.getDeliveryAddress());
+        shipmentDTO.setShippingCost(shipment.getShippingCost());
 
         // Set associated Order ID if it exists
         if (shipment.getOrder() != null) {
-            shipmentDTO.setOrderId(shipment.getOrder().getId());
+            shipmentDTO.setOrderId(shipment.getOrder().getOrderId());
         }
 
         return shipmentDTO;

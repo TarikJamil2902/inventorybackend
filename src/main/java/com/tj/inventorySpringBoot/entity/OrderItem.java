@@ -1,8 +1,9 @@
 package com.tj.inventorySpringBoot.entity;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 @Entity
 public class OrderItem {
 
@@ -19,7 +20,11 @@ public class OrderItem {
     private Product product;
 
     private Integer quantity;
-    private Double price; // Price of the product at the time of the order
+
+    private Double unitPrice;  // Price of the product at the time of the order
+    private Double totalPrice;  // Quantity * Unit Price
+    private Double discount;    // Discount applied to this item
+    private Double tax;         // Tax applied to this item
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -28,11 +33,21 @@ public class OrderItem {
     protected void onCreate() {
         this.createdTime = LocalDateTime.now();
         this.updatedTime = LocalDateTime.now();
+
+        // Calculate totalPrice during creation (Quantity * Unit Price)
+        if (this.quantity != null && this.unitPrice != null) {
+            this.totalPrice = this.quantity * this.unitPrice;
+        }
     }
 
     @PreUpdate
     protected void onUpdate() {
         this.updatedTime = LocalDateTime.now();
+
+        // Recalculate totalPrice during update (Quantity * Unit Price)
+        if (this.quantity != null && this.unitPrice != null) {
+            this.totalPrice = this.quantity * this.unitPrice;
+        }
     }
 
     public Long getId() {
@@ -67,12 +82,36 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -90,6 +129,4 @@ public class OrderItem {
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
     }
-
-    // Getters and setters
 }

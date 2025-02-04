@@ -1,8 +1,7 @@
 package com.tj.inventorySpringBoot.entity;
 
-
-
 import com.tj.inventorySpringBoot.enums.OrderStatus;
+import com.tj.inventorySpringBoot.enums.PaymentStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +12,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderId;
 
     private String customerName;
     private String customerContact;
@@ -32,8 +31,27 @@ public class Order {
     private LocalDateTime orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "discount_id") // Add this line to reference Discount
-    private Discount discount; // This is the missing property
+    @JoinColumn(name = "discount_id") // Reference to Discount entity
+    private Discount discount;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id") // Foreign key to Customer
+    private Customer customer; // Customer related to the order
+
+    @ManyToOne
+    @JoinColumn(name = "shipment_id") // Foreign key to Shipment
+    private Shipment shipment; // Shipment details for the order
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id") // Foreign key to Employee
+    private Employee employee; // Employee responsible for the order
+
+    private String shippingAddress;
+    private String billingAddress;
+    private String shippingMethod;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus; // Payment status, e.g., paid, pending
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -49,12 +67,14 @@ public class Order {
         this.updatedTime = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    // Getters and Setters
+
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public String getCustomerName() {
@@ -89,6 +109,14 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
+    public List<Tax> getTaxes() {
+        return taxes;
+    }
+
+    public void setTaxes(List<Tax> taxes) {
+        this.taxes = taxes;
+    }
+
     public OrderStatus getStatus() {
         return status;
     }
@@ -113,6 +141,62 @@ public class Order {
         this.discount = discount;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public String getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(String shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     public LocalDateTime getCreatedTime() {
         return createdTime;
     }
@@ -127,13 +211,5 @@ public class Order {
 
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
-    }
-
-    public List<Tax> getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(List<Tax> taxes) {
-        this.taxes = taxes;
     }
 }

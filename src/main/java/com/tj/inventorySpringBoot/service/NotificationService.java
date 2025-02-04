@@ -2,12 +2,15 @@ package com.tj.inventorySpringBoot.service;
 
 import com.tj.inventorySpringBoot.dto.NotificationDTO;
 import com.tj.inventorySpringBoot.entity.Notification;
+import com.tj.inventorySpringBoot.entity.User;
 import com.tj.inventorySpringBoot.enums.NotificationType;
 import com.tj.inventorySpringBoot.repository.NotificationRepository;
+import com.tj.inventorySpringBoot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,60 +22,67 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    // Method to create a new notification
+    @Autowired
+    private UserRepository userRepository;
+
+    // Create a new notification
     public NotificationDTO createNotification(NotificationDTO notificationDTO) {
         Notification notification = convertToEntity(notificationDTO);
+        notification.setCreatedAt(LocalDateTime.now());
         Notification savedNotification = notificationRepository.save(notification);
         return convertToDTO(savedNotification);
     }
 
-    // Method to update an existing notification
+    // Update an existing notification
     public NotificationDTO updateNotification(Long id, NotificationDTO notificationDTO) {
         Optional<Notification> notificationOptional = notificationRepository.findById(id);
         if (notificationOptional.isPresent()) {
             Notification notification = notificationOptional.get();
-            notification.setTitle(notificationDTO.getTitle());
             notification.setMessage(notificationDTO.getMessage());
-            notification.setIsRead(notificationDTO.getIsRead());
+            notification.setStatus(notificationDTO.getStatus());
+            notification.setUpdatedAt(LocalDateTime.now());
 
-            if (notificationDTO.getType() != null) {
-                notification.setType(NotificationType.valueOf(notificationDTO.getType()));
+            if (notificationDTO.getNotificationType() != null) {
+                notification.setNotificationType(NotificationType.valueOf(notificationDTO.getNotificationType()));
+            }
+
+            if (notificationDTO.getUserName() != null) {
+                User user = userRepository.findByUserName(notificationDTO.getUserName()).orElse(null);
+                notification.setUser(user);
             }
 
             Notification updatedNotification = notificationRepository.save(notification);
             return convertToDTO(updatedNotification);
         }
-        return null; // Or throw exception if notification not found
+        return null;
     }
 
-    // Method to get all notifications
+    // Get all notifications
     public List<NotificationDTO> getAllNotifications() {
         List<Notification> notifications = notificationRepository.findAll();
         return notifications.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    // Method to get a notification by its ID
+    // Get a notification by its ID
     public NotificationDTO getNotificationById(Long id) {
         Optional<Notification> notificationOptional = notificationRepository.findById(id);
-        if (notificationOptional.isPresent()) {
-            return convertToDTO(notificationOptional.get());
-        }
-        return null; // Or throw exception
+        return notificationOptional.map(this::convertToDTO).orElse(null);
     }
 
-    // Method to mark a notification as read
+    // Mark a notification as read
     public NotificationDTO markAsRead(Long id) {
         Optional<Notification> notificationOptional = notificationRepository.findById(id);
         if (notificationOptional.isPresent()) {
             Notification notification = notificationOptional.get();
-            notification.setIsRead(true);
+            notification.setStatus("READ");
+            notification.setUpdatedAt(LocalDateTime.now());
             notificationRepository.save(notification);
             return convertToDTO(notification);
         }
-        return null; // Handle as needed (e.g., return 404 or throw exception)
+        return null;
     }
 
-    // Method to delete a notification by its ID
+    // Delete a notification by its ID
     public void deleteNotification(Long id) {
         notificationRepository.deleteById(id);
     }
@@ -80,13 +90,17 @@ public class NotificationService {
     // Convert NotificationDTO to Notification entity
     private Notification convertToEntity(NotificationDTO notificationDTO) {
         Notification notification = new Notification();
-        notification.setId(notificationDTO.getId());
-        notification.setTitle(notificationDTO.getTitle());
+        notification.setNotificationId(notificationDTO.getNotificationId());
         notification.setMessage(notificationDTO.getMessage());
-        notification.setIsRead(notificationDTO.getIsRead());
+        notification.setStatus(notificationDTO.getStatus());
 
-        if (notificationDTO.getType() != null) {
-            notification.setType(NotificationType.valueOf(notificationDTO.getType()));
+        if (notificationDTO.getNotificationType() != null) {
+            notification.setNotificationType(NotificationType.valueOf(notificationDTO.getNotificationType()));
+        }
+
+        if (notificationDTO.getUserName() != null) {
+            User user = userRepository.findById(notificationDTO.getUserName()).orElse(null);
+            notification.setUser(user);
         }
 
         return notification;
@@ -95,13 +109,17 @@ public class NotificationService {
     // Convert Notification entity to NotificationDTO
     private NotificationDTO convertToDTO(Notification notification) {
         NotificationDTO notificationDTO = new NotificationDTO();
-        notificationDTO.setId(notification.getId());
-        notificationDTO.setTitle(notification.getTitle());
+        notificationDTO.setNotificationId(notification.getNotificationId());
         notificationDTO.setMessage(notification.getMessage());
-        notificationDTO.setIsRead(notification.getIsRead());
+        notificationDTO.setStatus(notification.getStatus());
+        notificationDTO.setCreatedAt(notification.getCreatedAt());
 
-        if (notification.getType() != null) {
-            notificationDTO.setType(notification.getType().name());
+        if (notification.getNotificationType() != null) {
+            notificationDTO.setNotificationType(notification.getNotificationType().name());
+        }
+
+        if (notification.getUser() != null) {
+            notificationDTO.setUserName(notification.getUser().getUserName());
         }
 
         return notificationDTO;

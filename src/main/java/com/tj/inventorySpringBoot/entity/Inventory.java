@@ -1,7 +1,5 @@
 package com.tj.inventorySpringBoot.entity;
-
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,17 +7,19 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long inventoryId;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "warehouse_id")
+    @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
 
-    private Integer quantity;
+    private Integer quantityOnHand;
+    private Integer quantityAllocated;
+    private Integer quantityAvailable;
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -35,12 +35,26 @@ public class Inventory {
         this.updatedTime = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    // Business logic to maintain quantityAvailable dynamically
+    @PostLoad
+    @PostPersist
+    @PostUpdate
+    private void updateAvailableQuantity() {
+        if (quantityOnHand != null && quantityAllocated != null) {
+            this.quantityAvailable = quantityOnHand - quantityAllocated;
+        } else {
+            this.quantityAvailable = 0;
+        }
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    // Getters and Setters
+
+    public Long getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(Long inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
     public Product getProduct() {
@@ -59,30 +73,37 @@ public class Inventory {
         this.warehouse = warehouse;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getQuantityOnHand() {
+        return quantityOnHand;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setQuantityOnHand(Integer quantityOnHand) {
+        this.quantityOnHand = quantityOnHand;
+        updateAvailableQuantity();
+    }
+
+    public Integer getQuantityAllocated() {
+        return quantityAllocated;
+    }
+
+    public void setQuantityAllocated(Integer quantityAllocated) {
+        this.quantityAllocated = quantityAllocated;
+        updateAvailableQuantity();
+    }
+
+    public Integer getQuantityAvailable() {
+        return quantityAvailable;
     }
 
     public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
     public LocalDateTime getUpdatedTime() {
         return updatedTime;
     }
 
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
+            public void setQuantityAvailable(Integer quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
     }
-
-    // Getters and setters
 }
-

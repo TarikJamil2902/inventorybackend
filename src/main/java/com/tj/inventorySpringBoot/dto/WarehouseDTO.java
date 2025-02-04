@@ -2,36 +2,69 @@ package com.tj.inventorySpringBoot.dto;
 
 public class WarehouseDTO {
 
-    private Long id;
-    private String name;
-    private String location;
+    private Long warehouseId; // Updated field
+    private String warehouseName; // Updated field
+    private String warehouseAddress; // Updated field
+    private Integer capacity; // New field
+    private String contactInfo; // New field
+    private String status; // New field
+    private Long managerId; // New field (reference to Employee's ID)
 
     // Excluding inventories, createdTime, and updatedTime from the DTO
 
-    public Long getId() {
-        return id;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setWarehouseId(Long warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
-    public String getName() {
-        return name;
+    public String getWarehouseName() {
+        return warehouseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getWarehouseAddress() {
+        return warehouseAddress;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setWarehouseAddress(String warehouseAddress) {
+        this.warehouseAddress = warehouseAddress;
     }
 
-    // Getters and setters
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
 }
-

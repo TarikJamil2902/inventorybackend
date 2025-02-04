@@ -8,16 +8,33 @@ public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shipment_id")
     private Long id;
 
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name = "shipping_date")
+    private LocalDateTime shippingDate; // New field for shipping date
+
+    @Column(name = "delivery_date")
+    private LocalDateTime deliveryDate; // New field for delivery date
+
+    @Column(name = "carrier_name")
+    private String carrierName; // New field for carrier name (e.g., FedEx, UPS)
+
+    @Column(name = "tracking_number")
     private String trackingNumber;
-    private String carrier; // e.g., FedEx, DHL
-    private LocalDateTime shippedDate;
-    private LocalDateTime estimatedDeliveryDate;
+
+    @Column(name = "shipment_status")
+    private String shipmentStatus; // New field for shipment status (e.g., shipped, in transit, delivered)
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress; // New field for delivery address
+
+    @Column(name = "shipping_cost")
+    private Double shippingCost; // New field for shipping cost
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -32,6 +49,8 @@ public class Shipment {
     protected void onUpdate() {
         this.updatedTime = LocalDateTime.now();
     }
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -49,6 +68,30 @@ public class Shipment {
         this.order = order;
     }
 
+    public LocalDateTime getShippingDate() {
+        return shippingDate;
+    }
+
+    public void setShippingDate(LocalDateTime shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getCarrierName() {
+        return carrierName;
+    }
+
+    public void setCarrierName(String carrierName) {
+        this.carrierName = carrierName;
+    }
+
     public String getTrackingNumber() {
         return trackingNumber;
     }
@@ -57,28 +100,28 @@ public class Shipment {
         this.trackingNumber = trackingNumber;
     }
 
-    public String getCarrier() {
-        return carrier;
+    public String getShipmentStatus() {
+        return shipmentStatus;
     }
 
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
+    public void setShipmentStatus(String shipmentStatus) {
+        this.shipmentStatus = shipmentStatus;
     }
 
-    public LocalDateTime getShippedDate() {
-        return shippedDate;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setShippedDate(LocalDateTime shippedDate) {
-        this.shippedDate = shippedDate;
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
-    public LocalDateTime getEstimatedDeliveryDate() {
-        return estimatedDeliveryDate;
+    public Double getShippingCost() {
+        return shippingCost;
     }
 
-    public void setEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
+    public void setShippingCost(Double shippingCost) {
+        this.shippingCost = shippingCost;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -96,6 +139,4 @@ public class Shipment {
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
     }
-
-    // Getters and setters
 }

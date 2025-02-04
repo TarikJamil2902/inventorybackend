@@ -9,7 +9,8 @@ public class Return {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "return_id")
+    private Long returnId;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = true)
@@ -19,9 +20,24 @@ public class Return {
     @JoinColumn(name = "purchase_order_id", nullable = true)
     private PurchaseOrder supplierReturn; // If it's a supplier return
 
-    private String reason; // Reason for the return
-    private Integer quantity;
+    @Column(name = "reason_for_return")
+    private String reason; // Reason for the return (e.g., defective, wrong item)
 
+    @Column(name = "return_date")
+    private LocalDateTime returnDate; // Date when the return was requested or processed
+
+    @Column(name = "return_status")
+    private String returnStatus; // Status of the return (e.g., pending, processed)
+
+    @Column(name = "amount_refunded")
+    private Double amountRefunded; // Amount refunded for the return
+
+    @Column(name = "return_type")
+    private String returnType; // Type of the return (e.g., full, partial)
+
+    @Column(name = "refund_method")
+    private String refundMethod; // Method of refund (e.g., store credit, original payment)
+    private Integer quantity;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
 
@@ -36,12 +52,23 @@ public class Return {
         this.updatedTime = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    // Getters and Setters
+
+
+    public Long getReturnId() {
+        return returnId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setReturnId(Long returnId) {
+        this.returnId = returnId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Order getCustomerOrder() {
@@ -68,12 +95,44 @@ public class Return {
         this.reason = reason;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public LocalDateTime getReturnDate() {
+        return returnDate;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setReturnDate(LocalDateTime returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getReturnStatus() {
+        return returnStatus;
+    }
+
+    public void setReturnStatus(String returnStatus) {
+        this.returnStatus = returnStatus;
+    }
+
+    public Double getAmountRefunded() {
+        return amountRefunded;
+    }
+
+    public void setAmountRefunded(Double amountRefunded) {
+        this.amountRefunded = amountRefunded;
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String returnType) {
+        this.returnType = returnType;
+    }
+
+    public String getRefundMethod() {
+        return refundMethod;
+    }
+
+    public void setRefundMethod(String refundMethod) {
+        this.refundMethod = refundMethod;
     }
 
     public LocalDateTime getCreatedTime() {

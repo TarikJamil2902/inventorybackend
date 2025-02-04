@@ -2,6 +2,7 @@ package com.tj.inventorySpringBoot.entity;
 
 import com.tj.inventorySpringBoot.enums.PurchaseOrderStatus;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,21 +11,29 @@ public class PurchaseOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "purchase_order_id")
+    private Long purchaseOrderId; // Primary Key
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
+    private Supplier supplier; // Foreign Key to Supplier
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
-    private List<PurchaseOrderItem> purchaseOrderItems;
-
-    private Double totalCost;
-
-    @Enumerated(EnumType.STRING)
-    private PurchaseOrderStatus status; // PENDING, COMPLETED, CANCELLED
+    private List<PurchaseOrderItem> purchaseOrderItems; // Links to Order Items or Products
 
     private LocalDateTime orderDate;
+    private LocalDateTime deliveryDate; // New field for delivery date
+
+    @Enumerated(EnumType.STRING)
+    private PurchaseOrderStatus status; // Status (e.g., PENDING, RECEIVED)
+
+    private Double totalAmount; // New field for total amount
+
+    private String paymentTerms; // New field for payment terms (e.g., "Net 30", "Cash on Delivery")
+
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private Employee createdBy; // Foreign Key to Employee who created the order
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -40,12 +49,14 @@ public class PurchaseOrder {
         this.updatedTime = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    // Getters and Setters
+
+    public Long getPurchaseOrderId() {
+        return purchaseOrderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPurchaseOrderId(Long purchaseOrderId) {
+        this.purchaseOrderId = purchaseOrderId;
     }
 
     public Supplier getSupplier() {
@@ -64,12 +75,20 @@ public class PurchaseOrder {
         this.purchaseOrderItems = purchaseOrderItems;
     }
 
-    public Double getTotalCost() {
-        return totalCost;
+    public LocalDateTime getOrderDate() {
+        return orderDate;
     }
 
-    public void setTotalCost(Double totalCost) {
-        this.totalCost = totalCost;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public PurchaseOrderStatus getStatus() {
@@ -80,12 +99,28 @@ public class PurchaseOrder {
         this.status = status;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public Double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getPaymentTerms() {
+        return paymentTerms;
+    }
+
+    public void setPaymentTerms(String paymentTerms) {
+        this.paymentTerms = paymentTerms;
+    }
+
+    public Employee getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Employee createdBy) {
+        this.createdBy = createdBy;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -103,6 +138,4 @@ public class PurchaseOrder {
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
     }
-
-    // Getters and setters
 }
