@@ -19,10 +19,10 @@ public class Warehouse {
     private String status; // New field (active, under maintenance)
 
     @ManyToOne
-    @JoinColumn(name = "manager_id") // Foreign key to Employee
+    @JoinColumn // Foreign key to Employee
     private Employee manager; // New field (Foreign Key)
 
-    @OneToMany(mappedBy = "warehouse")
+    @OneToMany
     private List<Inventory> inventories;
 
     private LocalDateTime createdTime;

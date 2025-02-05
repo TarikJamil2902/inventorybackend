@@ -1,6 +1,8 @@
 package com.tj.inventorySpringBoot.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,21 +14,21 @@ public class Report {
 
     private String reportType;  // e.g., "sales", "stock", "financial"
 
-    private LocalDateTime startDate;  // Start date for the report period
+    private LocalDate startDate;  // Start date for the report period
 
-    private LocalDateTime endDate;  // End date for the report period
+    private LocalDate endDate;  // End date for the report period
 
     private LocalDateTime generatedAt;  // Timestamp when the report was generated
 
     @ManyToOne
-    @JoinColumn(name = "generated_by")  // Linking to Employee entity (assuming Employee entity exists)
+    @JoinColumn  // Linking to Employee entity (assuming Employee entity exists)
     private Employee generatedBy;
 
     @Lob  // Large object, assuming the content is stored as JSON or other formats
     private String data;  // Report content in JSON or another format
 
     @ManyToOne
-    @JoinColumn(name = "created_by")  // Link to the User entity for the creator
+    @JoinColumn // Link to the User entity for the creator
     private User createdBy;
 
     private LocalDateTime createdTime;
@@ -53,19 +55,19 @@ public class Report {
         this.reportType = reportType;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

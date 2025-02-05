@@ -11,28 +11,28 @@ public class PurchaseOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "purchase_order_id")
+    @Column
     private Long purchaseOrderId; // Primary Key
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn
     private Supplier supplier; // Foreign Key to Supplier
 
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+    @OneToMany
     private List<PurchaseOrderItem> purchaseOrderItems; // Links to Order Items or Products
 
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate; // New field for delivery date
 
-    @Enumerated(EnumType.STRING)
-    private PurchaseOrderStatus status; // Status (e.g., PENDING, RECEIVED)
+
+    private String status; // Status (e.g., PENDING, RECEIVED)
 
     private Double totalAmount; // New field for total amount
 
     private String paymentTerms; // New field for payment terms (e.g., "Net 30", "Cash on Delivery")
 
     @ManyToOne
-    @JoinColumn(name = "created_by")
+    @JoinColumn
     private Employee createdBy; // Foreign Key to Employee who created the order
 
     private LocalDateTime createdTime;
@@ -42,6 +42,8 @@ public class PurchaseOrder {
     protected void onCreate() {
         this.createdTime = LocalDateTime.now();
         this.updatedTime = LocalDateTime.now();
+        this.orderDate = LocalDateTime.now();
+
     }
 
     @PreUpdate
@@ -91,11 +93,11 @@ public class PurchaseOrder {
         this.deliveryDate = deliveryDate;
     }
 
-    public PurchaseOrderStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(PurchaseOrderStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -17,7 +17,7 @@ public class Order {
     private String customerName;
     private String customerContact;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany
     private List<OrderItem> orderItems;
 
     private Double totalAmount;
@@ -25,33 +25,33 @@ public class Order {
     @OneToMany
     private List<Tax> taxes; // Taxes applied to this order
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status; // e.g., PENDING, COMPLETED, CANCELLED
+
+    private String status; // e.g., PENDING, COMPLETED, CANCELLED
 
     private LocalDateTime orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "discount_id") // Reference to Discount entity
+    @JoinColumn
     private Discount discount;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id") // Foreign key to Customer
+    @JoinColumn
     private Customer customer; // Customer related to the order
 
     @ManyToOne
-    @JoinColumn(name = "shipment_id") // Foreign key to Shipment
+    @JoinColumn
     private Shipment shipment; // Shipment details for the order
 
     @ManyToOne
-    @JoinColumn(name = "employee_id") // Foreign key to Employee
+    @JoinColumn
     private Employee employee; // Employee responsible for the order
 
     private String shippingAddress;
     private String billingAddress;
     private String shippingMethod;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus; // Payment status, e.g., paid, pending
+
+    private String paymentStatus; // Payment status, e.g., paid, pending
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -117,11 +117,11 @@ public class Order {
         this.taxes = taxes;
     }
 
-    public OrderStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -189,11 +189,11 @@ public class Order {
         this.shippingMethod = shippingMethod;
     }
 
-    public PaymentStatus getPaymentStatus() {
+    public String getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
+    public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 

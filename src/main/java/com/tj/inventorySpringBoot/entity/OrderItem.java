@@ -9,14 +9,14 @@ public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderItemId;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn
     private Product product;
 
     private Integer quantity;
@@ -50,12 +50,12 @@ public class OrderItem {
         }
     }
 
-    public Long getId() {
-        return id;
+    public Long getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderItemId(Long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public Order getOrder() {

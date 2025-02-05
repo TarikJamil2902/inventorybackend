@@ -6,12 +6,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 
 
-@Entity
-@Getter
 @Setter
-public class Customer extends BaseEntity {
+@Getter
+@Entity
+
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,19 @@ public class Customer extends BaseEntity {
 
     private String status; // Active or Inactive
 
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdTime = LocalDateTime.now();
+        this.updatedTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedTime = LocalDateTime.now();
+    }
 
     public Long getCustomerId() {
         return customerId;
@@ -115,5 +130,21 @@ public class Customer extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

@@ -12,6 +12,8 @@ public class CustomerDTO {
 
 
 
+    private Long customerId;
+
     private String firstName;
 
     private String lastName;
@@ -30,7 +32,13 @@ public class CustomerDTO {
 
     private String status;
 
+    public Long getCustomerId() {
+        return customerId;
+    }
 
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
 
     public String getFirstName() {
         return firstName;

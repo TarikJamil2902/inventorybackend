@@ -28,6 +28,19 @@ public class Notification {
     @ManyToOne
     @JoinColumn
     private User user;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdTime = LocalDateTime.now();
+        this.updatedTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedTime = LocalDateTime.now();
+    }
 
     // Getters and Setters
 
@@ -85,5 +98,21 @@ public class Notification {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

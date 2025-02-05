@@ -92,7 +92,7 @@ public class OrderItemService {
     // Convert OrderItemDTO to OrderItem entity
     private OrderItem convertToEntity(OrderItemDTO orderItemDTO) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setId(orderItemDTO.getId());
+        orderItem.setOrderItemId(orderItemDTO.getOrderItemId());
         orderItem.setQuantity(orderItemDTO.getQuantity());
         orderItem.setUnitPrice(orderItemDTO.getUnitPrice());
         orderItem.setTotalPrice(orderItemDTO.getQuantity() * orderItemDTO.getUnitPrice());  // Calculate total price
@@ -118,7 +118,7 @@ public class OrderItemService {
     // Convert OrderItem entity to OrderItemDTO
     private OrderItemDTO convertToDTO(OrderItem orderItem) {
         OrderItemDTO orderItemDTO = new OrderItemDTO();
-        orderItemDTO.setId(orderItem.getId());
+        orderItemDTO.setOrderItemId(orderItem.getOrderItemId());
         orderItemDTO.setQuantity(orderItem.getQuantity());
         orderItemDTO.setUnitPrice(orderItem.getUnitPrice());
         orderItemDTO.setTotalPrice(orderItem.getTotalPrice());

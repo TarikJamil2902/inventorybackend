@@ -7,7 +7,8 @@ public class PurchaseOrderDTO {
 
     private Long purchaseOrderId;  // Corresponds to purchase_order_id in the entity
     private Long supplierId;  // Reference to the Supplier ID
-    private List<Long> purchaseOrderItemIds;  // List of IDs of PurchaseOrderItems
+    private List<Long> purchaseOrderItemIds;
+    // List of IDs of PurchaseOrderItems
     private LocalDateTime orderDate;  // Order date
     private LocalDateTime deliveryDate;  // New field for delivery date
     private String status;  // Status as a string (e.g., "PENDING", "RECEIVED")

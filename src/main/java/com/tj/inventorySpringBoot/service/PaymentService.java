@@ -68,7 +68,7 @@ public class PaymentService {
     // Convert PaymentDTO to Payment entity
     private Payment convertToEntity(PaymentDTO paymentDTO) {
         Payment payment = new Payment();
-        payment.setId(paymentDTO.getId());
+        payment.setPaymentId(paymentDTO.getPaymentId());
         payment.setAmount(paymentDTO.getAmount());
         payment.setPaymentMethod(paymentDTO.getPaymentMethod());
         payment.setPaymentStatus(paymentDTO.getPaymentStatus());
@@ -84,7 +84,7 @@ public class PaymentService {
     // Convert Payment entity to PaymentDTO
     private PaymentDTO convertToDTO(Payment payment) {
         PaymentDTO paymentDTO = new PaymentDTO();
-        paymentDTO.setId(payment.getId());
+        paymentDTO.setPaymentId(payment.getPaymentId());
         paymentDTO.setAmount(payment.getAmount());
         paymentDTO.setPaymentMethod(payment.getPaymentMethod());
         paymentDTO.setPaymentStatus(payment.getPaymentStatus());

@@ -7,17 +7,17 @@ public class OrderDTO {
     private Long orderId;
     private String customerName;
     private String customerContact;
-    private List<Long> orderItemIds;  // List of order item IDs instead of full `OrderItem` objects
+    private List<Long> orderItemIds;
     private Double totalAmount;
     private String status;  // Order status as a string (e.g., "PENDING", "COMPLETED", "CANCELLED")
 
-    private Long customerId;  // Customer ID (foreign key reference)
-    private Long shipmentId;  // Shipment ID (foreign key reference)
-    private Long employeeId;  // Employee ID (foreign key reference)
+    private Long customerId;
+    private Long shipmentId;
+    private Long employeeId;
     private String shippingAddress;
     private String billingAddress;
     private String shippingMethod;
-    private String paymentStatus;  // Payment status as a string (e.g., "PAID", "PENDING")
+    private String paymentStatus;
 
     // Getters and Setters
 

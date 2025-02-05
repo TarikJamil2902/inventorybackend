@@ -1,14 +1,16 @@
 package com.tj.inventorySpringBoot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
-public class Discount extends BaseEntity {
+public class Discount  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,20 @@ public class Discount extends BaseEntity {
     private LocalDateTime validUntil; // End date of the discount validity
     private String status; // Discount status (e.g., active, expired)
     private String applicableTo; // Applicable to (e.g., product, category)
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdTime = LocalDateTime.now();
+        this.updatedTime = LocalDateTime.now();
+
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedTime = LocalDateTime.now();
+    }
     // Getters and Setters
 
     public Long getDiscountId() {
@@ -95,5 +110,21 @@ public class Discount extends BaseEntity {
 
     public void setApplicableTo(String applicableTo) {
         this.applicableTo = applicableTo;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

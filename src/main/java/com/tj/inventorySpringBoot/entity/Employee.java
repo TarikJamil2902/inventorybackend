@@ -1,12 +1,16 @@
 package com.tj.inventorySpringBoot.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class Employee extends BaseEntity {
+@Getter
+@Setter
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +29,26 @@ public class Employee extends BaseEntity {
     private Double salary;
     private String status;  // e.g., active, on leave
 
+    private LocalDateTime updatedTime;
+
     @PrePersist
     protected void onCreate() {
+        LocalDateTime createdTime = LocalDateTime.now();
+        this.updatedTime = LocalDateTime.now();
         this.hireDate = LocalDate.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        // Update the updated time in the parent class
-        super.setUpdatedAt(LocalDateTime.now());
+        this.updatedTime = LocalDateTime.now();
     }
 
+
+
+
+
     // Getters and Setters
+
 
     public Long getEmployeeId() {
         return employeeId;
@@ -100,5 +112,13 @@ public class Employee extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

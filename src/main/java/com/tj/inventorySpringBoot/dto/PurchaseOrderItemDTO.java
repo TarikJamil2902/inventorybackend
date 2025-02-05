@@ -2,7 +2,7 @@ package com.tj.inventorySpringBoot.dto;
 
 public class PurchaseOrderItemDTO {
 
-    private Long id;
+    private Long purchaseOrderItemId;
     private Long purchaseOrderId;  // Reference to the PurchaseOrder ID
     private Long productId;  // Reference to the Product ID
     private Integer quantity;
@@ -15,12 +15,13 @@ public class PurchaseOrderItemDTO {
 
     // No `createdTime`, `updatedTime` fields
 
-    public Long getId() {
-        return id;
+
+    public Long getPurchaseOrderItemId() {
+        return purchaseOrderItemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPurchaseOrderItemId(Long purchaseOrderItemId) {
+        this.purchaseOrderItemId = purchaseOrderItemId;
     }
 
     public Long getPurchaseOrderId() {

@@ -8,14 +8,14 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // payment_id
+    private Long paymentId;
 
     @OneToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn
     private Customer customer;  // customer_id
 
     private Double amount;
@@ -40,12 +40,12 @@ public class Payment {
         this.updatedTime = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    public Long getPaymentId() {
+        return paymentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
     }
 
     public Order getOrder() {

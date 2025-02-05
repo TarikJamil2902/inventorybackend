@@ -1,13 +1,14 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ShipmentDTO {
 
-    private Long id;
+    private Long shipmentId;
     private Long orderId;
-    private LocalDateTime shippingDate;
-    private LocalDateTime deliveryDate;
+    private LocalDate shippingDate;
+    private LocalDate deliveryDate;
     private String carrierName;
     private String trackingNumber;
     private String shipmentStatus;
@@ -18,12 +19,13 @@ public class ShipmentDTO {
 
     // Getters and setters
 
-    public Long getId() {
-        return id;
+
+    public Long getShipmentId() {
+        return shipmentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
     }
 
     public Long getOrderId() {
@@ -34,19 +36,19 @@ public class ShipmentDTO {
         this.orderId = orderId;
     }
 
-    public LocalDateTime getShippingDate() {
+    public LocalDate getShippingDate() {
         return shippingDate;
     }
 
-    public void setShippingDate(LocalDateTime shippingDate) {
+    public void setShippingDate(LocalDate shippingDate) {
         this.shippingDate = shippingDate;
     }
 
-    public LocalDateTime getDeliveryDate() {
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDateTime deliveryDate) {
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

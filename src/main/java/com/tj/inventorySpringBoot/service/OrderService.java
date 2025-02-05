@@ -39,7 +39,7 @@ public class OrderService {
             existingOrder.setCustomerName(orderDTO.getCustomerName());
             existingOrder.setCustomerContact(orderDTO.getCustomerContact());
             existingOrder.setTotalAmount(orderDTO.getTotalAmount());
-            existingOrder.setStatus(OrderStatus.valueOf(orderDTO.getStatus()));
+            existingOrder.setStatus(orderDTO.getStatus());
 
             // Update the order items
             if (orderDTO.getOrderItemIds() != null) {
@@ -80,7 +80,7 @@ public class OrderService {
         order.setCustomerName(orderDTO.getCustomerName());
         order.setCustomerContact(orderDTO.getCustomerContact());
         order.setTotalAmount(orderDTO.getTotalAmount());
-        order.setStatus(OrderStatus.valueOf(orderDTO.getStatus()));
+        order.setStatus(orderDTO.getStatus());
 
         // Map the orderItemIds to OrderItem objects
         if (orderDTO.getOrderItemIds() != null) {
@@ -98,11 +98,11 @@ public class OrderService {
         orderDTO.setCustomerName(order.getCustomerName());
         orderDTO.setCustomerContact(order.getCustomerContact());
         orderDTO.setTotalAmount(order.getTotalAmount());
-        orderDTO.setStatus(order.getStatus().name());
+        orderDTO.setStatus(order.getStatus());
 
         // Get the order item IDs for the DTO
         List<Long> orderItemIds = order.getOrderItems().stream()
-                .map(OrderItem::getId)
+                .map(OrderItem::getOrderItemId)
                 .collect(Collectors.toList());
         orderDTO.setOrderItemIds(orderItemIds);
 

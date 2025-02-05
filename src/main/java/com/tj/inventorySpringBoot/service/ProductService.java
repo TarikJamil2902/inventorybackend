@@ -47,7 +47,7 @@ public class ProductService {
             // Update category if provided
             if (productDTO.getCategoryId() != null) {
                 Category category = new Category();
-                category.setId(productDTO.getCategoryId());
+                category.setCategoryId(productDTO.getCategoryId());
                 product.setCategory(category);
             }
 
@@ -98,7 +98,7 @@ public class ProductService {
         // Set category if available
         if (productDTO.getCategoryId() != null) {
             Category category = new Category();
-            category.setId(productDTO.getCategoryId());
+            category.setCategoryId(productDTO.getCategoryId());
             product.setCategory(category);
         }
         return product;
@@ -124,7 +124,7 @@ public class ProductService {
 
         // Set categoryId from associated category
         if (product.getCategory() != null) {
-            productDTO.setCategoryId(product.getCategory().getId());
+            productDTO.setCategoryId(product.getCategory().getCategoryId());
         }
         return productDTO;
     }

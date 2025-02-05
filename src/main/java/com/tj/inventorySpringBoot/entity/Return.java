@@ -1,6 +1,8 @@
 package com.tj.inventorySpringBoot.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,33 +11,33 @@ public class Return {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "return_id")
+    @Column
     private Long returnId;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = true)
+    @JoinColumn
     private Order customerOrder; // If it's a customer return
 
     @ManyToOne
-    @JoinColumn(name = "purchase_order_id", nullable = true)
+    @JoinColumn
     private PurchaseOrder supplierReturn; // If it's a supplier return
 
-    @Column(name = "reason_for_return")
+    @Column
     private String reason; // Reason for the return (e.g., defective, wrong item)
 
-    @Column(name = "return_date")
-    private LocalDateTime returnDate; // Date when the return was requested or processed
+    @Column
+    private LocalDate returnDate; // Date when the return was requested or processed
 
-    @Column(name = "return_status")
+    @Column
     private String returnStatus; // Status of the return (e.g., pending, processed)
 
-    @Column(name = "amount_refunded")
+    @Column
     private Double amountRefunded; // Amount refunded for the return
 
-    @Column(name = "return_type")
+    @Column
     private String returnType; // Type of the return (e.g., full, partial)
 
-    @Column(name = "refund_method")
+    @Column
     private String refundMethod; // Method of refund (e.g., store credit, original payment)
     private Integer quantity;
     private LocalDateTime createdTime;
@@ -95,11 +97,11 @@ public class Return {
         this.reason = reason;
     }
 
-    public LocalDateTime getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(LocalDateTime returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 

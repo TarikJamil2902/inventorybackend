@@ -1,8 +1,10 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDateTime;
+
 public class PaymentDTO {
 
-    private Long id;
+    private Long paymentId;
     private Long orderId;       // Reference to the Order ID
     private Long customerId;    // Reference to the Customer ID
     private Double amount;
@@ -10,16 +12,17 @@ public class PaymentDTO {
     private String paymentStatus;  // e.g., "COMPLETED", "PENDING", "REFUNDED"
     private String currency;      // Currency used for the payment
     private String transactionId; // For payment gateway tracking
-    private String paymentDate;   // Payment date as String (e.g., "YYYY-MM-DD HH:mm:ss")
+    private LocalDateTime paymentDate;   // Payment date as String (e.g., "YYYY-MM-DD HH:mm:ss")
 
     // No `createdTime`, `updatedTime` fields
 
-    public Long getId() {
-        return id;
+
+    public Long getPaymentId() {
+        return paymentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
     }
 
     public Long getOrderId() {
@@ -78,11 +81,11 @@ public class PaymentDTO {
         this.transactionId = transactionId;
     }
 
-    public String getPaymentDate() {
+    public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(String paymentDate) {
+    public void setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
     }
 

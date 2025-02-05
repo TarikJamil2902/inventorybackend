@@ -55,7 +55,7 @@ public class PurchaseOrderService {
 
             // Update fields
             existingPurchaseOrder.setTotalAmount(purchaseOrderDTO.getTotalAmount());
-            existingPurchaseOrder.setStatus(PurchaseOrderStatus.valueOf(purchaseOrderDTO.getStatus()));
+            existingPurchaseOrder.setStatus(purchaseOrderDTO.getStatus());
 
             // Update Supplier
             Supplier supplier = supplierRepository.findById(purchaseOrderDTO.getSupplierId()).orElse(null);
@@ -101,7 +101,7 @@ public class PurchaseOrderService {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setPurchaseOrderId(purchaseOrderDTO.getPurchaseOrderId());
         purchaseOrder.setTotalAmount(purchaseOrderDTO.getTotalAmount());
-        purchaseOrder.setStatus(PurchaseOrderStatus.valueOf(purchaseOrderDTO.getStatus()));
+        purchaseOrder.setStatus(purchaseOrderDTO.getStatus());
 
         // Set Supplier
         Supplier supplier = supplierRepository.findById(purchaseOrderDTO.getSupplierId()).orElse(null);
@@ -125,7 +125,7 @@ public class PurchaseOrderService {
         PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
         purchaseOrderDTO.setPurchaseOrderId(purchaseOrder.getPurchaseOrderId());
         purchaseOrderDTO.setTotalAmount(purchaseOrder.getTotalAmount());
-        purchaseOrderDTO.setStatus(purchaseOrder.getStatus().name());
+        purchaseOrderDTO.setStatus(purchaseOrder.getStatus());
 
         // Set Supplier ID
         if (purchaseOrder.getSupplier() != null) {
@@ -135,7 +135,7 @@ public class PurchaseOrderService {
         // Set PurchaseOrderItem IDs
         if (purchaseOrder.getPurchaseOrderItems() != null) {
             List<Long> purchaseOrderItemIds = purchaseOrder.getPurchaseOrderItems().stream()
-                    .map(PurchaseOrderItem::getId)
+                    .map(PurchaseOrderItem::getPurchaseOrderItemId)
                     .collect(Collectors.toList());
             purchaseOrderDTO.setPurchaseOrderItemIds(purchaseOrderItemIds);
         }

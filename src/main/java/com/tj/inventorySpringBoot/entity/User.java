@@ -24,8 +24,7 @@ public class User {
     @Column(nullable = false, name = "user_name")
     private String userName;
 
-    // @OneToMany(mappedBy = "user")
-    // private Set<AuditLog> auditLogs;
+
 
     @Column
     private String userFirstName;

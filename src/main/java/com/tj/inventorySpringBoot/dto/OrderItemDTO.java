@@ -4,7 +4,7 @@ package com.tj.inventorySpringBoot.dto;
 
 public class OrderItemDTO {
 
-    private Long id;
+    private Long orderItemId;
     private Long orderId;    // Reference to the Order ID
     private Long productId;  // Reference to the Product ID
     private Integer quantity;
@@ -13,12 +13,12 @@ public class OrderItemDTO {
     private Double discount;   // Discount applied to this item
     private Double tax;        // Tax applied to this item
 
-    public Long getId() {
-        return id;
+    public Long getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderItemId(Long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public Long getOrderId() {

@@ -73,6 +73,8 @@ public class CustomerService {
     // Convert CustomerDTO to Customer entity
     private Customer convertToEntity(CustomerDTO customerDTO) {
         Customer customer = new Customer();
+        customer.setCustomerId(customerDTO.getCustomerId());
+
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
         customer.setEmail(customerDTO.getEmail());
@@ -89,6 +91,8 @@ public class CustomerService {
     // Convert Customer entity to CustomerDTO
     private CustomerDTO convertToDTO(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setCustomerId(customer.getCustomerId());
+
         customerDTO.setFirstName(customer.getFirstName());
         customerDTO.setLastName(customer.getLastName());
         customerDTO.setEmail(customer.getEmail());

@@ -2,6 +2,7 @@ package com.tj.inventorySpringBoot.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,8 +18,8 @@ public class Tax {
     private String taxCategory; // Category of the tax (e.g., "Sales", "Income")
     private Boolean isActive; // Whether the tax is currently active
 
-    private LocalDateTime effectiveFrom; // Start date for the tax rate
-    private LocalDateTime effectiveTill; // End date for the tax rate (optional)
+    private LocalDate effectiveFrom; // Start date for the tax rate
+    private LocalDate effectiveTill; // End date for the tax rate (optional)
 
     @ManyToOne
     private Order orders; // Orders with this tax applied
@@ -96,19 +97,19 @@ public class Tax {
         this.isActive = isActive;
     }
 
-    public LocalDateTime getEffectiveFrom() {
+    public LocalDate getEffectiveFrom() {
         return effectiveFrom;
     }
 
-    public void setEffectiveFrom(LocalDateTime effectiveFrom) {
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
     }
 
-    public LocalDateTime getEffectiveTill() {
+    public LocalDate getEffectiveTill() {
         return effectiveTill;
     }
 
-    public void setEffectiveTill(LocalDateTime effectiveTill) {
+    public void setEffectiveTill(LocalDate effectiveTill) {
         this.effectiveTill = effectiveTill;
     }
 

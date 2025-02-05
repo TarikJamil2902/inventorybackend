@@ -20,15 +20,15 @@ public class Supplier {
     @Column
     private String email;
 
-    @Column(name = "contact_phone")
+    @Column
     private String phone;
 
     private String address;
 
-    @Column(name = "payment_terms")
+    @Column
     private String paymentTerms; // New field for payment terms (e.g., Net 30, Net 60)
 
-    @Column(name = "supplier_rating")
+    @Column
     private Double supplierRating; // New field for supplier rating (e.g., 4.5)
 
     private String status; // New field for status (e.g., active, inactive)

@@ -16,17 +16,17 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId; // product_id (Primary Key)
+    private Long productId;
 
     private String name;
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "category_id") // This column will be created in the Product table
+    @JoinColumn
     private Category category; // Foreign Key - Links to Category
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id") // This column will be created in the Product table
+    @JoinColumn // This column will be created in the Product table
     private Supplier supplier; // Foreign Key - Links to Supplier
 
     private String size;  // e.g., "S", "M", "L", "XL"

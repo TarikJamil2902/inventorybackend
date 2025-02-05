@@ -79,7 +79,6 @@ public class Inventory {
 
     public void setQuantityOnHand(Integer quantityOnHand) {
         this.quantityOnHand = quantityOnHand;
-        updateAvailableQuantity();
     }
 
     public Integer getQuantityAllocated() {
@@ -88,22 +87,29 @@ public class Inventory {
 
     public void setQuantityAllocated(Integer quantityAllocated) {
         this.quantityAllocated = quantityAllocated;
-        updateAvailableQuantity();
     }
 
     public Integer getQuantityAvailable() {
         return quantityAvailable;
     }
 
+    public void setQuantityAvailable(Integer quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
+    }
+
     public LocalDateTime getCreatedTime() {
         return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 
     public LocalDateTime getUpdatedTime() {
         return updatedTime;
     }
 
-            public void setQuantityAvailable(Integer quantityAvailable) {
-        this.quantityAvailable = quantityAvailable;
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

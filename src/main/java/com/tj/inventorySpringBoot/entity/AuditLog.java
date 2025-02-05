@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
 @Setter
-@Table(name = "auditlogs")
-public class AuditLog extends BaseEntity {
+@Table(name = "auditLogs")
+public class AuditLog  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,19 @@ public class AuditLog extends BaseEntity {
     @ManyToOne
     @JoinColumn
     private User user; // Many-to-one relationship with User entity
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdTime = LocalDateTime.now();
+        this.updatedTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedTime = LocalDateTime.now();
+    }
 
     // Getters and Setters
 
@@ -72,5 +87,21 @@ public class AuditLog extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public LocalDateTime getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(LocalDateTime updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

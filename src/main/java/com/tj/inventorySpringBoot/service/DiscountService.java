@@ -35,6 +35,8 @@ public class DiscountService {
         Optional<Discount> discountOptional = discountRepository.findById(id);
         if (discountOptional.isPresent()) {
             Discount discount = discountOptional.get();
+
+
             discount.setDiscountCode(discountDTO.getDiscountCode());
             discount.setDescription(discountDTO.getDescription());
             discount.setDiscountType(discountDTO.getDiscountType());

@@ -59,6 +59,14 @@ public class Role {
         this.dateCreated = dateCreated;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     public OffsetDateTime getLastUpdated() {
         return lastUpdated;
     }

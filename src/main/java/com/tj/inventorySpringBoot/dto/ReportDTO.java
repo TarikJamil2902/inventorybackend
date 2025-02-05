@@ -1,13 +1,14 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ReportDTO {
 
     private Long reportId;  // Report ID
     private String reportType;  // e.g., "sales", "stock", "financial"
-    private LocalDateTime startDate;  // Start date for the report period
-    private LocalDateTime endDate;  // End date for the report period
+    private LocalDate startDate;  // Start date for the report period
+    private LocalDate endDate;  // End date for the report period
     private LocalDateTime generatedAt;  // Timestamp when the report was generated
     private Long generatedByEmployeeId;  // ID of the Employee who generated the report
     private String data;  // Report content in JSON or another format
@@ -31,19 +32,19 @@ public class ReportDTO {
         this.reportType = reportType;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

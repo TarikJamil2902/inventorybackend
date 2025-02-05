@@ -1,5 +1,6 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ReturnDTO {
@@ -8,7 +9,7 @@ public class ReturnDTO {
     private Long customerOrderId; // ID of the associated customer order (if applicable)
     private Long supplierReturnId; // ID of the associated supplier return (if applicable)
     private String reasonForReturn; // Reason for the return (e.g., defective, wrong item)
-    private LocalDateTime returnDate; // Date of the return
+    private LocalDate returnDate; // Date of the return
     private String returnStatus; // Status of the return (e.g., pending, processed)
     private Double amountRefunded; // Amount refunded for the return
     private String returnType; // Type of the return (e.g., full, partial)
@@ -49,11 +50,11 @@ public class ReturnDTO {
         this.reasonForReturn = reasonForReturn;
     }
 
-    public LocalDateTime getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(LocalDateTime returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 

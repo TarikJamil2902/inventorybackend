@@ -9,14 +9,14 @@ public class PurchaseOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long purchaseOrderItemId;
 
     @ManyToOne
-    @JoinColumn(name = "purchase_order_id")
+    @JoinColumn
     private PurchaseOrder purchaseOrder;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn
     private Product product;
 
     private Integer quantity;
@@ -75,12 +75,12 @@ public class PurchaseOrderItem {
         }
     }
 
-    public Long getId() {
-        return id;
+    public Long getPurchaseOrderItemId() {
+        return purchaseOrderItemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPurchaseOrderItemId(Long purchaseOrderItemId) {
+        this.purchaseOrderItemId = purchaseOrderItemId;
     }
 
     public PurchaseOrder getPurchaseOrder() {
@@ -105,7 +105,6 @@ public class PurchaseOrderItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-        calculateTotalCosts(); // Recalculate totals when quantity changes
     }
 
     public Double getCostPerUnit() {
@@ -114,7 +113,6 @@ public class PurchaseOrderItem {
 
     public void setCostPerUnit(Double costPerUnit) {
         this.costPerUnit = costPerUnit;
-        calculateTotalCosts(); // Recalculate totals when costPerUnit changes
     }
 
     public Double getDiscount() {
@@ -123,7 +121,6 @@ public class PurchaseOrderItem {
 
     public void setDiscount(Double discount) {
         this.discount = discount;
-        calculateTotalCosts(); // Recalculate totals when discount changes
     }
 
     public Double getTaxRate() {
@@ -132,7 +129,6 @@ public class PurchaseOrderItem {
 
     public void setTaxRate(Double taxRate) {
         this.taxRate = taxRate;
-        calculateTotalCosts(); // Recalculate totals when tax rate changes
     }
 
     public Double getTotalCost() {

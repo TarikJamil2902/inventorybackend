@@ -77,7 +77,7 @@ public class ShipmentService {
     // Convert ShipmentDTO to Shipment entity
     private Shipment convertToEntity(ShipmentDTO shipmentDTO) {
         Shipment shipment = new Shipment();
-        shipment.setId(shipmentDTO.getId());
+        shipment.setShipmentId(shipmentDTO.getShipmentId());
         shipment.setTrackingNumber(shipmentDTO.getTrackingNumber());
         shipment.setCarrierName(shipmentDTO.getCarrierName());
         shipment.setShippingDate(shipmentDTO.getShippingDate());
@@ -98,7 +98,7 @@ public class ShipmentService {
     // Convert Shipment entity to ShipmentDTO
     private ShipmentDTO convertToDTO(Shipment shipment) {
         ShipmentDTO shipmentDTO = new ShipmentDTO();
-        shipmentDTO.setId(shipment.getId());
+        shipmentDTO.setShipmentId(shipment.getShipmentId());
         shipmentDTO.setTrackingNumber(shipment.getTrackingNumber());
         shipmentDTO.setCarrierName(shipment.getCarrierName());
         shipmentDTO.setShippingDate(shipment.getShippingDate());

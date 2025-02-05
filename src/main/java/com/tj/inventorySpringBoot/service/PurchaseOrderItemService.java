@@ -107,7 +107,7 @@ public class PurchaseOrderItemService {
     // Convert PurchaseOrderItemDTO to PurchaseOrderItem entity
     private PurchaseOrderItem convertToEntity(PurchaseOrderItemDTO purchaseOrderItemDTO) {
         PurchaseOrderItem purchaseOrderItem = new PurchaseOrderItem();
-        purchaseOrderItem.setId(purchaseOrderItemDTO.getId());
+        purchaseOrderItem.setPurchaseOrderItemId(purchaseOrderItemDTO.getPurchaseOrderItemId());
         purchaseOrderItem.setQuantity(purchaseOrderItemDTO.getQuantity());
         purchaseOrderItem.setCostPerUnit(purchaseOrderItemDTO.getCostPerUnit());
 
@@ -125,7 +125,7 @@ public class PurchaseOrderItemService {
     // Convert PurchaseOrderItem entity to PurchaseOrderItemDTO
     private PurchaseOrderItemDTO convertToDTO(PurchaseOrderItem purchaseOrderItem) {
         PurchaseOrderItemDTO purchaseOrderItemDTO = new PurchaseOrderItemDTO();
-        purchaseOrderItemDTO.setId(purchaseOrderItem.getId());
+        purchaseOrderItemDTO.setPurchaseOrderItemId(purchaseOrderItem.getPurchaseOrderItemId());
         purchaseOrderItemDTO.setQuantity(purchaseOrderItem.getQuantity());
         purchaseOrderItemDTO.setCostPerUnit(purchaseOrderItem.getCostPerUnit());
 
