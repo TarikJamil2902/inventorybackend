@@ -22,8 +22,8 @@ public class Notification {
 
     private LocalDateTime updatedAt;
 
-    @Enumerated(EnumType.STRING)
-    private NotificationType notificationType;
+
+    private String notificationType;
 
     @ManyToOne
     @JoinColumn
@@ -71,11 +71,11 @@ public class Notification {
         this.updatedAt = updatedAt;
     }
 
-    public NotificationType getNotificationType() {
+    public String getNotificationType() {
         return notificationType;
     }
 
-    public void setNotificationType(NotificationType notificationType) {
+    public void setNotificationType(String notificationType) {
         this.notificationType = notificationType;
     }
 

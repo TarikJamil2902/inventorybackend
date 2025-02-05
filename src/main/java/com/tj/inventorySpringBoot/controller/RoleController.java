@@ -17,6 +17,7 @@ import java.util.List;
 
 
 @RestController
+
 @RequestMapping(value = "/api/roles", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 public class RoleController {

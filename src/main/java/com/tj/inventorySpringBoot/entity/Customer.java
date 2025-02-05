@@ -30,11 +30,11 @@ public class Customer extends BaseEntity {
 
     private Integer loyaltyPoints;
 
-    @Enumerated(EnumType.STRING)
-    private CustomerType customerType; // Retail or Wholesale
 
-    @Enumerated(EnumType.STRING)
-    private Status status; // Active or Inactive
+    private String customerType; // Retail or Wholesale
+
+
+    private String status; // Active or Inactive
 
 
     public Long getCustomerId() {
@@ -101,19 +101,19 @@ public class Customer extends BaseEntity {
         this.loyaltyPoints = loyaltyPoints;
     }
 
-    public CustomerType getCustomerType() {
+    public String getCustomerType() {
         return customerType;
     }
 
-    public void setCustomerType(CustomerType customerType) {
+    public void setCustomerType(String customerType) {
         this.customerType = customerType;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

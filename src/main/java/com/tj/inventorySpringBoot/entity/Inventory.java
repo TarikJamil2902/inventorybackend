@@ -10,11 +10,11 @@ public class Inventory {
     private Long inventoryId;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "warehouse_id", nullable = false)
+    @JoinColumn
     private Warehouse warehouse;
 
     private Integer quantityOnHand;

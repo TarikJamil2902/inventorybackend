@@ -1,15 +1,16 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class EmployeeDTO {
+public class    EmployeeDTO {
 
     private Long employeeId;
     private String name;
     private String email;
     private String phone;
     private String role;  // Role as a string representation (e.g., "WAREHOUSE STAFF", "MANAGER", "SALESPERSON")
-    private LocalDateTime hireDate;
+    private LocalDate hireDate;
     private Double salary;
     private String status;  // e.g., "ACTIVE", "ON LEAVE"
 
@@ -55,11 +56,11 @@ public class EmployeeDTO {
         this.role = role;
     }
 
-    public LocalDateTime getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(LocalDateTime hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 

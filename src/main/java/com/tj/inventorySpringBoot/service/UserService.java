@@ -44,21 +44,21 @@ public class UserService {
     public void initRoleAndUser() {
 
         Role adminRole = new Role();
-        adminRole.setRoleName(ERole.ROLE_ADMIN.toString());
+        adminRole.setRoleName(ERole.ADMIN.toString());
         adminRole.setRoleDescription("Admin role");
         adminRole.setDateCreated(OffsetDateTime.now());
         adminRole.setLastUpdated(OffsetDateTime.now());
         roleRepository.save(adminRole);
 
         Role userRole = new Role();
-        userRole.setRoleName(ERole.ROLE_USER.toString());
+        userRole.setRoleName(ERole.STAFF.toString());
         userRole.setRoleDescription("Default role for newly created record");
         userRole.setDateCreated(OffsetDateTime.now());
         userRole.setLastUpdated(OffsetDateTime.now());
         roleRepository.save(userRole);
 
         Role roleMODERATOR = new Role();
-        roleMODERATOR.setRoleName("ROLE_MODERATOR");
+        roleMODERATOR.setRoleName("MANAGER");
         roleMODERATOR.setRoleDescription("Default role for newly ROLE_MODERATOR record");
         roleMODERATOR.setDateCreated(OffsetDateTime.now());
         roleMODERATOR.setLastUpdated(OffsetDateTime.now());

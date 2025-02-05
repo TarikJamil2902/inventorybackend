@@ -1,6 +1,8 @@
 package com.tj.inventorySpringBoot.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,13 +21,13 @@ public class Employee extends BaseEntity {
     @JoinColumn(name = "role_id")  // the column in the Employee table that stores the role reference
     private Role role;
 
-    private LocalDateTime hireDate;
+    private LocalDate hireDate;
     private Double salary;
     private String status;  // e.g., active, on leave
 
     @PrePersist
     protected void onCreate() {
-        this.hireDate = LocalDateTime.now();
+        this.hireDate = LocalDate.now();
     }
 
     @PreUpdate
@@ -76,11 +78,11 @@ public class Employee extends BaseEntity {
         this.role = role;
     }
 
-    public LocalDateTime getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(LocalDateTime hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 

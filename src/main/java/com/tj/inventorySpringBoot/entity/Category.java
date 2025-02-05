@@ -9,19 +9,19 @@ public class Category extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @Column
     private Long id;
 
-    @Column(name = "category_name", nullable = false)
+    @Column
     private String name;
 
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany
     private List<Product> products;
 
-    @Column(nullable = false)
+    @Column
     private String status; // Active or Inactive
 
     public Long getId() {

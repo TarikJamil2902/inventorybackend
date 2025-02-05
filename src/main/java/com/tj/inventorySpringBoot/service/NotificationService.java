@@ -42,9 +42,7 @@ public class NotificationService {
             notification.setStatus(notificationDTO.getStatus());
             notification.setUpdatedAt(LocalDateTime.now());
 
-            if (notificationDTO.getNotificationType() != null) {
-                notification.setNotificationType(NotificationType.valueOf(notificationDTO.getNotificationType()));
-            }
+
 
             if (notificationDTO.getUserName() != null) {
                 User user = userRepository.findByUserName(notificationDTO.getUserName()).orElse(null);
@@ -94,9 +92,7 @@ public class NotificationService {
         notification.setMessage(notificationDTO.getMessage());
         notification.setStatus(notificationDTO.getStatus());
 
-        if (notificationDTO.getNotificationType() != null) {
-            notification.setNotificationType(NotificationType.valueOf(notificationDTO.getNotificationType()));
-        }
+
 
         if (notificationDTO.getUserName() != null) {
             User user = userRepository.findById(notificationDTO.getUserName()).orElse(null);
@@ -114,9 +110,7 @@ public class NotificationService {
         notificationDTO.setStatus(notification.getStatus());
         notificationDTO.setCreatedAt(notification.getCreatedAt());
 
-        if (notification.getNotificationType() != null) {
-            notificationDTO.setNotificationType(notification.getNotificationType().name());
-        }
+        
 
         if (notification.getUser() != null) {
             notificationDTO.setUserName(notification.getUser().getUserName());

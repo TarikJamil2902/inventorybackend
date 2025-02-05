@@ -16,11 +16,11 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`inventorydata` /*!40100 DEFAULT CHARACT
 
 USE `inventorydata`;
 
-/*Table structure for table `audit_logs` */
+/*Table structure for table `auditlogs` */
 
-DROP TABLE IF EXISTS `audit_logs`;
+DROP TABLE IF EXISTS `auditlogs`;
 
-CREATE TABLE `audit_logs` (
+CREATE TABLE `auditlogs` (
   `audit_log_id` bigint NOT NULL AUTO_INCREMENT,
   `created_at` datetime(6) DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
@@ -32,11 +32,11 @@ CREATE TABLE `audit_logs` (
   `ip_address` varchar(255) DEFAULT NULL,
   `user_user_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`audit_log_id`),
-  KEY `FKjebedb0gj2bwu0t8y90md03hq` (`user_user_name`),
-  CONSTRAINT `FKjebedb0gj2bwu0t8y90md03hq` FOREIGN KEY (`user_user_name`) REFERENCES `users` (`user_name`)
+  KEY `FKcgme55q95u3qwy57w6q41o714` (`user_user_name`),
+  CONSTRAINT `FKcgme55q95u3qwy57w6q41o714` FOREIGN KEY (`user_user_name`) REFERENCES `users` (`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*Data for the table `audit_logs` */
+/*Data for the table `auditlogs` */
 
 /*Table structure for table `category` */
 
@@ -67,18 +67,21 @@ CREATE TABLE `customer` (
   `updated_at` datetime(6) DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   `billing_address` varchar(500) DEFAULT NULL,
-  `customer_type` enum('RETAIL','WHOLESALE') DEFAULT NULL,
+  `customer_type` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `loyalty_points` int DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `shipping_address` varchar(500) DEFAULT NULL,
-  `status` enum('ACTIVE','INACTIVE') DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `customer` */
+
+insert  into `customer`(`customer_id`,`created_at`,`created_by`,`updated_at`,`updated_by`,`billing_address`,`customer_type`,`email`,`first_name`,`last_name`,`loyalty_points`,`phone`,`shipping_address`,`status`) values 
+(1,'2025-02-05 18:54:31.602995',NULL,'2025-02-05 18:54:31.602995',NULL,'hffgkhgkhjljlj','Regular','tarik.du.esol.4th@gmail.com','Mona','Boudi',23,'987-654-3210','jljhljklfgchfhfhfg','Active');
 
 /*Table structure for table `discount` */
 
@@ -114,7 +117,7 @@ CREATE TABLE `employee` (
   `updated_at` datetime(6) DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `hire_date` datetime(6) DEFAULT NULL,
+  `hire_date` date DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `salary` double DEFAULT NULL,
@@ -123,12 +126,14 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`employee_id`),
   KEY `FK4am1h1y1msy35hglg78wjiv2a` (`role_id`),
   CONSTRAINT `FK4am1h1y1msy35hglg78wjiv2a` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `employee` */
 
 insert  into `employee`(`employee_id`,`created_at`,`created_by`,`updated_at`,`updated_by`,`email`,`hire_date`,`name`,`phone`,`salary`,`status`,`role_id`) values 
-(1,NULL,NULL,NULL,NULL,'em@gmail.com','2025-02-04 18:38:46.458769','emp1','1234567890',100000,'Active',NULL);
+(1,NULL,NULL,NULL,NULL,'john.doe@example.com','2025-02-05','John Doe','123-456-7890',55000,'Active',NULL),
+(3,NULL,NULL,'2025-02-05 18:05:10.090777',NULL,'dfhngfj@gmail.com','2025-02-05','Nazmul','+1234567890',1004663,'Active',NULL),
+(4,NULL,NULL,'2025-02-05 18:06:09.258842',NULL,'pagol@gmail.com','2025-02-05','Rakib','+15678901234',57568679789,'Active',NULL);
 
 /*Table structure for table `inventory` */
 
@@ -416,9 +421,9 @@ CREATE TABLE `roles` (
 /*Data for the table `roles` */
 
 insert  into `roles`(`role_name`,`date_created`,`last_updated`,`role_description`) values 
-('ROLE_ADMIN','2025-02-04 12:30:27.296121','2025-02-04 12:30:27.296121','Admin role'),
-('ROLE_MODERATOR','2025-02-04 12:30:27.427768','2025-02-04 12:30:27.427768','Default role for newly ROLE_MODERATOR record'),
-('ROLE_USER','2025-02-04 12:30:27.361945','2025-02-04 12:30:27.361945','Default role for newly created record');
+('ADMIN','2025-02-05 10:29:49.558760','2025-02-05 12:54:11.822645','Admin role'),
+('MANAGER','2025-02-05 10:29:49.565746','2025-02-05 12:54:11.909414','Default role for newly ROLE_MODERATOR record'),
+('STAFF','2025-02-05 10:29:49.563748','2025-02-05 12:54:11.906421','Default role for newly created record');
 
 /*Table structure for table `roles_users` */
 
@@ -524,7 +529,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`user_name`,`account_non_expired`,`account_non_locked`,`credentials_non_expired`,`date_created`,`email`,`enabled`,`last_updated`,`password`,`user_first_name`,`user_last_name`) values 
-('admin123',NULL,NULL,NULL,'2025-02-04 12:30:27.505559','admin@gmail.com',NULL,'2025-02-04 12:30:27.505559','$2a$10$3y08iY4iUzG4Ix4xNK6k5.sB36zCqRXorQvMmi3WMgodDvO0jHzyC','admin','admin');
+('admin123',NULL,NULL,NULL,'2025-02-05 10:29:49.631563','admin@gmail.com',NULL,'2025-02-05 12:54:12.006016','$2a$10$vLxaelgrRwRPXKi06G0YyeRaWADEy9.gNuK8KhxO8eCRSAQ.t5TGS','admin','admin');
 
 /*Table structure for table `users_roles` */
 
@@ -558,12 +563,9 @@ CREATE TABLE `warehouse` (
   PRIMARY KEY (`warehouse_id`),
   KEY `FKi8xvsxeox9a41ulkadd7tadq2` (`manager_id`),
   CONSTRAINT `FKi8xvsxeox9a41ulkadd7tadq2` FOREIGN KEY (`manager_id`) REFERENCES `employee` (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `warehouse` */
-
-insert  into `warehouse`(`warehouse_id`,`capacity`,`contact_info`,`created_time`,`status`,`updated_time`,`warehouse_address`,`warehouse_name`,`manager_id`) values 
-(1,20000,'string','2025-02-04 18:39:09.872463','string','2025-02-04 18:39:50.248766','string','string',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
