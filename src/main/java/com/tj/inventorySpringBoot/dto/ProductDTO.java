@@ -1,6 +1,12 @@
 package com.tj.inventorySpringBoot.dto;
 
+import com.tj.inventorySpringBoot.entity.FileData;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToMany;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +27,9 @@ public class ProductDTO {
 
     private String barcode;  // Barcode
     private String status;  // e.g., active, discontinued
-    private String imageUrl;  // image_url
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FileData> fileDatas;
     private Long categoryId;  // Reference to the Category ID
     private Long supplierId;  // Reference to the Supplier ID
 
@@ -43,6 +51,14 @@ public class ProductDTO {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<FileData> getFileDatas() {
+        return fileDatas;
+    }
+
+    public void setFileDatas(List<FileData> fileDatas) {
+        this.fileDatas = fileDatas;
     }
 
     public void setDescription(String description) {
@@ -121,13 +137,7 @@ public class ProductDTO {
         this.status = status;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public Long getCategoryId() {
         return categoryId;

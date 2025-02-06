@@ -41,7 +41,7 @@ public class Product {
    private Double price;
     private String barcode; // barcode
     private String status; // status (e.g., active, discontinued)
-    private String imageUrl; // image_url
+
 
     private LocalDateTime createdAt; // created_at
     private LocalDateTime updatedAt; // updated_at
@@ -49,6 +49,8 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Inventory> inventories;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FileData> fileDatas;
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -180,13 +182,7 @@ public class Product {
         this.status = status;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -202,6 +198,14 @@ public class Product {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<FileData> getFileDatas() {
+        return fileDatas;
+    }
+
+    public void setFileDatas(List<FileData> fileDatas) {
+        this.fileDatas = fileDatas;
     }
 
     public List<Inventory> getInventories() {

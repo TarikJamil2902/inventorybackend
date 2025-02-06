@@ -42,8 +42,8 @@ public class ProductService {
 
             product.setBarcode(productDTO.getBarcode());  // Updated field for barcode
             product.setStatus(productDTO.getStatus());  // Updated field for status
-            product.setImageUrl(productDTO.getImageUrl());  // Updated field for image URL
-
+            product.setProductId(productDTO.getProductId());  // Updated field for product ID
+            product.setProductId(productDTO.getProductId());  // Updated field for product ID
             // Update category if provided
             if (productDTO.getCategoryId() != null) {
                 Category category = new Category();
@@ -93,7 +93,6 @@ public class ProductService {
 
         product.setBarcode(productDTO.getBarcode());  // Updated field for barcode
         product.setStatus(productDTO.getStatus());  // Updated field for status
-        product.setImageUrl(productDTO.getImageUrl());  // Updated field for image URL
 
         // Set category if available
         if (productDTO.getCategoryId() != null) {
@@ -120,7 +119,6 @@ public class ProductService {
       // Updated field for SKU
         productDTO.setBarcode(product.getBarcode());  // Updated field for barcode
         productDTO.setStatus(product.getStatus());  // Updated field for status
-        productDTO.setImageUrl(product.getImageUrl());  // Updated field for image URL
 
         // Set categoryId from associated category
         if (product.getCategory() != null) {
