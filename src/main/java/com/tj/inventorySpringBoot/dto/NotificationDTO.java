@@ -10,11 +10,11 @@ public class NotificationDTO {
 
     private String status;
 
-    private LocalDateTime createdAt;
+
 
     private String notificationType;
 
-    private String userName;
+
 
     // Getters and Setters
 
@@ -42,13 +42,7 @@ public class NotificationDTO {
         this.status = status;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public String getNotificationType() {
         return notificationType;
@@ -58,11 +52,5 @@ public class NotificationDTO {
         this.notificationType = notificationType;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

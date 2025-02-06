@@ -20,8 +20,8 @@ public class Discount  {
     private String description; // Description of the discount
     private String discountType; // Discount type (e.g., percentage, fixed amount)
     private Double amount; // Amount of discount (either percentage or fixed amount)
-    private LocalDateTime validFrom; // Start date of the discount validity
-    private LocalDateTime validUntil; // End date of the discount validity
+    private LocalDate validFrom; // Start date of the discount validity
+    private LocalDate validUntil; // End date of the discount validity
     private String status; // Discount status (e.g., active, expired)
     private String applicableTo; // Applicable to (e.g., product, category)
     private LocalDateTime createdTime;
@@ -80,19 +80,19 @@ public class Discount  {
         this.amount = amount;
     }
 
-    public LocalDateTime getValidFrom() {
+    public LocalDate getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(LocalDateTime validFrom) {
+    public void setValidFrom(LocalDate validFrom) {
         this.validFrom = validFrom;
     }
 
-    public LocalDateTime getValidUntil() {
+    public LocalDate getValidUntil() {
         return validUntil;
     }
 
-    public void setValidUntil(LocalDateTime validUntil) {
+    public void setValidUntil(LocalDate validUntil) {
         this.validUntil = validUntil;
     }
 

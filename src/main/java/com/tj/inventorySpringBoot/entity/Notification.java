@@ -25,9 +25,7 @@ public class Notification {
 
     private String notificationType;
 
-    @ManyToOne
-    @JoinColumn
-    private User user;
+
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
 
@@ -92,13 +90,7 @@ public class Notification {
         this.notificationType = notificationType;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public LocalDateTime getCreatedTime() {
         return createdTime;

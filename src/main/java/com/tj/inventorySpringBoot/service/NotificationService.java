@@ -28,7 +28,7 @@ public class NotificationService {
     // Create a new notification
     public NotificationDTO createNotification(NotificationDTO notificationDTO) {
         Notification notification = convertToEntity(notificationDTO);
-        notification.setCreatedAt(LocalDateTime.now());
+
         Notification savedNotification = notificationRepository.save(notification);
         return convertToDTO(savedNotification);
     }
@@ -40,14 +40,10 @@ public class NotificationService {
             Notification notification = notificationOptional.get();
             notification.setMessage(notificationDTO.getMessage());
             notification.setStatus(notificationDTO.getStatus());
-            notification.setUpdatedAt(LocalDateTime.now());
+            notification.setNotificationType(notificationDTO.getNotificationType());
 
 
 
-            if (notificationDTO.getUserName() != null) {
-                User user = userRepository.findByUserName(notificationDTO.getUserName()).orElse(null);
-                notification.setUser(user);
-            }
 
             Notification updatedNotification = notificationRepository.save(notification);
             return convertToDTO(updatedNotification);
@@ -73,7 +69,7 @@ public class NotificationService {
         if (notificationOptional.isPresent()) {
             Notification notification = notificationOptional.get();
             notification.setStatus("READ");
-            notification.setUpdatedAt(LocalDateTime.now());
+
             notificationRepository.save(notification);
             return convertToDTO(notification);
         }
@@ -91,13 +87,7 @@ public class NotificationService {
         notification.setNotificationId(notificationDTO.getNotificationId());
         notification.setMessage(notificationDTO.getMessage());
         notification.setStatus(notificationDTO.getStatus());
-
-
-
-        if (notificationDTO.getUserName() != null) {
-            User user = userRepository.findById(notificationDTO.getUserName()).orElse(null);
-            notification.setUser(user);
-        }
+        notification.setNotificationType(notificationDTO.getNotificationType());
 
         return notification;
     }
@@ -108,13 +98,7 @@ public class NotificationService {
         notificationDTO.setNotificationId(notification.getNotificationId());
         notificationDTO.setMessage(notification.getMessage());
         notificationDTO.setStatus(notification.getStatus());
-        notificationDTO.setCreatedAt(notification.getCreatedAt());
-
-        
-
-        if (notification.getUser() != null) {
-            notificationDTO.setUserName(notification.getUser().getUserName());
-        }
+        notificationDTO.setNotificationType(notification.getNotificationType());
 
         return notificationDTO;
     }
