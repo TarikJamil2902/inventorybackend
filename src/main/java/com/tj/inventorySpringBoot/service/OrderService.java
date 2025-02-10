@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,13 +55,22 @@ public class OrderService {
             existingOrder.setCustomerName(orderDTO.getCustomerName());
             existingOrder.setCustomerContact(orderDTO.getCustomerContact());
             existingOrder.setTotalAmount(orderDTO.getTotalAmount());
+            existingOrder.setShippingAddress(orderDTO.getShippingAddress());
+            existingOrder.setBillingAddress(orderDTO.getBillingAddress());
+            existingOrder.setPaymentStatus(orderDTO.getPaymentStatus());
+            existingOrder.setShippingMethod(orderDTO.getShippingMethod());
             existingOrder.setStatus(orderDTO.getStatus());
 
             // Update the order items if provided
-            if (orderDTO.getOrderItemIds() != null) {
-                List<OrderItem> orderItems = orderItemRepository.findAllById(orderDTO.getOrderItemIds());
-                existingOrder.setOrderItems(orderItems);
-            }
+//            if (orderDTO.getOrderItemIds() != null) {
+//                List<OrderItem> orderItems = new ArrayList<>();
+//
+//                for (Long orderItemId : orderDTO.getOrderItemIds()) {
+//                    orderItemRepository.findById(orderItemId).ifPresent(orderItems::add);
+//                }
+//
+//                existingOrder.setOrderItems((Set<OrderItem>) orderItems);
+//            }
 
             // Update customer if provided
             if (orderDTO.getCustomerId() != null) {
@@ -110,10 +121,18 @@ public class OrderService {
         order.setCustomerContact(orderDTO.getCustomerContact());
         order.setTotalAmount(orderDTO.getTotalAmount());
         order.setStatus(orderDTO.getStatus());
+        order.setShippingAddress(orderDTO.getShippingAddress());
+        order.setBillingAddress(orderDTO.getBillingAddress());
+        order.setPaymentStatus(orderDTO.getPaymentStatus());
+        order.setShippingMethod(orderDTO.getShippingMethod());
 
-        if (orderDTO.getOrderItemIds() != null) {
-            List<OrderItem> orderItems = orderItemRepository.findAllById(orderDTO.getOrderItemIds());
-            order.setOrderItems(orderItems);
+
+
+        if (order.getOrderItems() != null) {
+            List<Long> orderItemIds = order.getOrderItems().stream()
+                    .map(OrderItem::getOrderItemId)
+                    .collect(Collectors.toList());
+            orderDTO.setOrderItemIds(orderItemIds);
         }
 
         // Set customer
@@ -140,6 +159,10 @@ public class OrderService {
         orderDTO.setCustomerName(order.getCustomerName());
         orderDTO.setCustomerContact(order.getCustomerContact());
         orderDTO.setTotalAmount(order.getTotalAmount());
+        orderDTO.setBillingAddress(order.getBillingAddress());
+        orderDTO.setShippingAddress(order.getShippingAddress());
+        orderDTO.setShippingMethod(order.getShippingMethod());
+        orderDTO.setPaymentStatus(order.getPaymentStatus());
         orderDTO.setStatus(order.getStatus());
 
         if (order.getOrderItems() != null) {

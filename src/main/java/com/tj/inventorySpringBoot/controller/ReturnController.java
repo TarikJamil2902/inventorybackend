@@ -24,7 +24,7 @@ public class ReturnController {
     }
 
     // Update an existing return by ID
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ReturnDTO> updateReturn(@PathVariable Long id, @RequestBody ReturnDTO returnDTO) {
         ReturnDTO updatedReturn = returnService.updateReturn(id, returnDTO);
         if (updatedReturn != null) {
@@ -51,7 +51,7 @@ public class ReturnController {
     }
 
     // Delete a return by ID
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReturn(@PathVariable Long id) {
         returnService.deleteReturn(id);
         return ResponseEntity.noContent().build();

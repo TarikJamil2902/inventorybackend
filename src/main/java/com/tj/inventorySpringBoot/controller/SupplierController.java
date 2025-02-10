@@ -17,14 +17,14 @@ public class SupplierController {
     private SupplierService supplierService;
 
     // Create a new supplier
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<SupplierDTO> createSupplier(@RequestBody SupplierDTO supplierDTO) {
         SupplierDTO createdSupplier = supplierService.createSupplier(supplierDTO);
         return ResponseEntity.ok(createdSupplier);
     }
 
     // Update an existing supplier
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<SupplierDTO> updateSupplier(@PathVariable Long id, @RequestBody SupplierDTO supplierDTO) {
         SupplierDTO updatedSupplier = supplierService.updateSupplier(id, supplierDTO);
         if (updatedSupplier != null) {
@@ -51,7 +51,7 @@ public class SupplierController {
     }
 
     // Delete a supplier by ID
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSupplier(@PathVariable Long id) {
         supplierService.deleteSupplier(id);
         return ResponseEntity.noContent().build();

@@ -46,6 +46,7 @@ public class PaymentService {
             payment.setPaymentStatus(paymentDTO.getPaymentStatus());
             payment.setCurrency(paymentDTO.getCurrency());
             payment.setTransactionId(paymentDTO.getTransactionId());
+            payment.setPaymentDate(paymentDTO.getPaymentDate());
 
             if (paymentDTO.getOrderId() != null) {
                 Order order = orderRepository.findById(paymentDTO.getOrderId())
@@ -92,6 +93,8 @@ public class PaymentService {
         payment.setPaymentMethod(paymentDTO.getPaymentMethod());
         payment.setPaymentStatus(paymentDTO.getPaymentStatus());
         payment.setCurrency(paymentDTO.getCurrency());
+        payment.setPaymentDate(paymentDTO.getPaymentDate());
+
         payment.setTransactionId(paymentDTO.getTransactionId());
         if (paymentDTO.getCustomerId() != null) {
             Customer customer = customerRepository.findById(paymentDTO.getCustomerId())
@@ -119,6 +122,8 @@ public class PaymentService {
         paymentDTO.setPaymentMethod(payment.getPaymentMethod());
         paymentDTO.setPaymentStatus(payment.getPaymentStatus());
         paymentDTO.setCurrency(payment.getCurrency());
+        paymentDTO.setPaymentDate(payment.getPaymentDate());
+
         paymentDTO.setTransactionId(payment.getTransactionId());
 
         // Optionally set orderId and customerId if needed

@@ -3,6 +3,7 @@ package com.tj.inventorySpringBoot.entity;
 import com.tj.inventorySpringBoot.enums.PurchaseOrderStatus;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class PurchaseOrder {
     @OneToMany
     private List<PurchaseOrderItem> purchaseOrderItems; // Links to Order Items or Products
 
-    private LocalDateTime orderDate;
-    private LocalDateTime deliveryDate; // New field for delivery date
+    private LocalDate orderDate;
+    private LocalDate deliveryDate; // New field for delivery date
 
 
     private String status; // Status (e.g., PENDING, RECEIVED)
@@ -42,7 +43,7 @@ public class PurchaseOrder {
     protected void onCreate() {
         this.createdTime = LocalDateTime.now();
         this.updatedTime = LocalDateTime.now();
-        this.orderDate = LocalDateTime.now();
+        this.orderDate = LocalDate.now();
 
     }
 
@@ -77,19 +78,19 @@ public class PurchaseOrder {
         this.purchaseOrderItems = purchaseOrderItems;
     }
 
-    public LocalDateTime getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
-    public LocalDateTime getDeliveryDate() {
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDateTime deliveryDate) {
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

@@ -5,6 +5,7 @@ import com.tj.inventorySpringBoot.enums.PaymentStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -17,8 +18,15 @@ public class Order {
     private String customerName;
     private String customerContact;
 
-    @OneToMany
-    private List<OrderItem> orderItems;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "orderOrderItems",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_item_id")
+    )
+    private Set<OrderItem> orderItems;
+
 
     private Double totalAmount;
 
@@ -93,13 +101,6 @@ public class Order {
         this.customerContact = customerContact;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 
     public Double getTotalAmount() {
         return totalAmount;
@@ -151,6 +152,14 @@ public class Order {
 
     public Shipment getShipment() {
         return shipment;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public void setShipment(Shipment shipment) {

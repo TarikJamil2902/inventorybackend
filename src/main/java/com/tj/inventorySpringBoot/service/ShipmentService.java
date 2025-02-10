@@ -38,6 +38,7 @@ public class ShipmentService {
 
             // Update shipment details
             existingShipment.setTrackingNumber(shipmentDTO.getTrackingNumber());
+            
             existingShipment.setCarrierName(shipmentDTO.getCarrierName());
             existingShipment.setShippingDate(shipmentDTO.getShippingDate());
             existingShipment.setDeliveryDate(shipmentDTO.getDeliveryDate());
@@ -77,7 +78,9 @@ public class ShipmentService {
     // Convert ShipmentDTO to Shipment entity
     private Shipment convertToEntity(ShipmentDTO shipmentDTO) {
         Shipment shipment = new Shipment();
+
         shipment.setShipmentId(shipmentDTO.getShipmentId());
+
         shipment.setTrackingNumber(shipmentDTO.getTrackingNumber());
         shipment.setCarrierName(shipmentDTO.getCarrierName());
         shipment.setShippingDate(shipmentDTO.getShippingDate());
@@ -99,6 +102,7 @@ public class ShipmentService {
     private ShipmentDTO convertToDTO(Shipment shipment) {
         ShipmentDTO shipmentDTO = new ShipmentDTO();
         shipmentDTO.setShipmentId(shipment.getShipmentId());
+        shipmentDTO.setOrderId(shipment.getOrder().getOrderId());
         shipmentDTO.setTrackingNumber(shipment.getTrackingNumber());
         shipmentDTO.setCarrierName(shipment.getCarrierName());
         shipmentDTO.setShippingDate(shipment.getShippingDate());

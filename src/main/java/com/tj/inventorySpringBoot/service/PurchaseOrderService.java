@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class PurchaseOrderService {
     // Create a new purchase order
     public PurchaseOrderDTO createPurchaseOrder(PurchaseOrderDTO purchaseOrderDTO) {
         PurchaseOrder purchaseOrder = convertToEntity(purchaseOrderDTO);
-        purchaseOrder.setOrderDate(LocalDateTime.now());  // Setting order date
+        purchaseOrder.setOrderDate(LocalDate.now());  // Setting order date
         purchaseOrder.setDeliveryDate(purchaseOrderDTO.getDeliveryDate());  // Setting delivery date
 
 

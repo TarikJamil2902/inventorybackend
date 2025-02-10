@@ -4,9 +4,7 @@ import com.tj.inventorySpringBoot.dto.ReturnDTO;
 import com.tj.inventorySpringBoot.entity.Order;
 import com.tj.inventorySpringBoot.entity.PurchaseOrder;
 import com.tj.inventorySpringBoot.entity.Return;
-import com.tj.inventorySpringBoot.repository.OrderRepository;
-import com.tj.inventorySpringBoot.repository.PurchaseOrderRepository;
-import com.tj.inventorySpringBoot.repository.ReturnRepository;
+import com.tj.inventorySpringBoot.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +19,12 @@ public class ReturnService {
 
     @Autowired
     private ReturnRepository returnRepository;
-
+@Autowired
+private SupplierRepository supplierRepository;
     @Autowired
     private OrderRepository orderRepository;
+@Autowired
+private CustomerRepository customerRepository;
 
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;

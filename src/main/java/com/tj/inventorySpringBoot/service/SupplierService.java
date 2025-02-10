@@ -69,7 +69,7 @@ public class SupplierService {
         supplier.setSupplierId(supplierDTO.getSupplierId()); // Updated field
         supplier.setName(supplierDTO.getName());
         supplier.setEmail(supplierDTO.getEmail()); // Updated field
-        supplierDTO.setPhone(supplier.getPhone());
+        supplier.setPhone(supplierDTO.getPhone());
         supplier.setAddress(supplierDTO.getAddress());
         supplier.setPaymentTerms(supplierDTO.getPaymentTerms()); // New field
         supplier.setSupplierRating(supplierDTO.getSupplierRating()); // New field

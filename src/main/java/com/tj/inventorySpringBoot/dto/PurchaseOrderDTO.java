@@ -1,5 +1,6 @@
 package com.tj.inventorySpringBoot.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,8 +10,8 @@ public class PurchaseOrderDTO {
     private Long supplierId;  // Reference to the Supplier ID
     private List<Long> purchaseOrderItemIds;
     // List of IDs of PurchaseOrderItems
-    private LocalDateTime orderDate;  // Order date
-    private LocalDateTime deliveryDate;  // New field for delivery date
+    private LocalDate orderDate;  // Order date
+    private LocalDate deliveryDate;  // New field for delivery date
     private String status;  // Status as a string (e.g., "PENDING", "RECEIVED")
     private Double totalAmount;  // Total amount for the order
     private String paymentTerms;  // Payment terms (e.g., "Net 30", "COD")
@@ -42,19 +43,19 @@ public class PurchaseOrderDTO {
         this.purchaseOrderItemIds = purchaseOrderItemIds;
     }
 
-    public LocalDateTime getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
-    public LocalDateTime getDeliveryDate() {
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDateTime deliveryDate) {
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
