@@ -1,6 +1,8 @@
 package com.tj.inventorySpringBoot.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +23,7 @@ public class Payment {
     private Double amount;
     private String paymentMethod; // e.g., credit card, cash, online
     private String paymentStatus; // e.g., completed, pending, refunded
-    private LocalDateTime paymentDate;
+    private LocalDate paymentDate;
 
     private String currency; // Currency used for the payment
     private String transactionId; // For payment gateway tracking
@@ -88,11 +90,12 @@ public class Payment {
         this.paymentStatus = paymentStatus;
     }
 
-    public LocalDateTime getPaymentDate() {
+
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 

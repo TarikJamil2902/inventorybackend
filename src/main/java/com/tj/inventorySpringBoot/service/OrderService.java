@@ -1,11 +1,11 @@
 package com.tj.inventorySpringBoot.service;
 
 import com.tj.inventorySpringBoot.dto.OrderDTO;
+import com.tj.inventorySpringBoot.entity.Customer;
 import com.tj.inventorySpringBoot.entity.Order;
 import com.tj.inventorySpringBoot.entity.OrderItem;
 import com.tj.inventorySpringBoot.enums.OrderStatus;
-import com.tj.inventorySpringBoot.repository.OrderItemRepository;
-import com.tj.inventorySpringBoot.repository.OrderRepository;
+import com.tj.inventorySpringBoot.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,20 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private DiscountRepository discountRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    @Autowired
+    private ShipmentRepository shipmentRepository;
+
+    @Autowired
+    private TaxRepository taxRepository;
+
+
     // Method to create a new order
     public OrderDTO createOrder(OrderDTO orderDTO) {
         Order order = convertToEntity(orderDTO);
@@ -41,10 +55,25 @@ public class OrderService {
             existingOrder.setTotalAmount(orderDTO.getTotalAmount());
             existingOrder.setStatus(orderDTO.getStatus());
 
-            // Update the order items
+            // Update the order items if provided
             if (orderDTO.getOrderItemIds() != null) {
                 List<OrderItem> orderItems = orderItemRepository.findAllById(orderDTO.getOrderItemIds());
                 existingOrder.setOrderItems(orderItems);
+            }
+
+            // Update customer if provided
+            if (orderDTO.getCustomerId() != null) {
+                customerRepository.findById(orderDTO.getCustomerId()).ifPresent(existingOrder::setCustomer);
+            }
+
+            // Update employee if provided
+            if (orderDTO.getEmployeeId() != null) {
+                employeeRepository.findById(orderDTO.getEmployeeId()).ifPresent(existingOrder::setEmployee);
+            }
+
+            // Update shipment if provided
+            if (orderDTO.getShipmentId() != null) {
+                shipmentRepository.findById(orderDTO.getShipmentId()).ifPresent(existingOrder::setShipment);
             }
 
             orderRepository.save(existingOrder);
@@ -82,12 +111,25 @@ public class OrderService {
         order.setTotalAmount(orderDTO.getTotalAmount());
         order.setStatus(orderDTO.getStatus());
 
-        // Map the orderItemIds to OrderItem objects
         if (orderDTO.getOrderItemIds() != null) {
             List<OrderItem> orderItems = orderItemRepository.findAllById(orderDTO.getOrderItemIds());
             order.setOrderItems(orderItems);
         }
 
+        // Set customer
+        if (orderDTO.getCustomerId() != null) {
+            customerRepository.findById(orderDTO.getCustomerId()).ifPresent(order::setCustomer);
+        }
+
+        // Set employee
+        if (orderDTO.getEmployeeId() != null) {
+            employeeRepository.findById(orderDTO.getEmployeeId()).ifPresent(order::setEmployee);
+        }
+
+        // Set shipment
+        if (orderDTO.getShipmentId() != null) {
+            shipmentRepository.findById(orderDTO.getShipmentId()).ifPresent(order::setShipment);
+        }
         return order;
     }
 
@@ -100,11 +142,27 @@ public class OrderService {
         orderDTO.setTotalAmount(order.getTotalAmount());
         orderDTO.setStatus(order.getStatus());
 
-        // Get the order item IDs for the DTO
-        List<Long> orderItemIds = order.getOrderItems().stream()
-                .map(OrderItem::getOrderItemId)
-                .collect(Collectors.toList());
-        orderDTO.setOrderItemIds(orderItemIds);
+        if (order.getOrderItems() != null) {
+            List<Long> orderItemIds = order.getOrderItems().stream()
+                    .map(OrderItem::getOrderItemId)
+                    .collect(Collectors.toList());
+            orderDTO.setOrderItemIds(orderItemIds);
+        }
+
+        // Set customer ID
+        if (order.getCustomer() != null) {
+            orderDTO.setCustomerId(order.getCustomer().getCustomerId());
+        }
+
+        // Set employee ID
+        if (order.getEmployee() != null) {
+            orderDTO.setEmployeeId(order.getEmployee().getEmployeeId());
+        }
+
+        // Set shipment ID
+        if (order.getShipment() != null) {
+            orderDTO.setShipmentId(order.getShipment().getShipmentId());
+        }
 
         return orderDTO;
     }

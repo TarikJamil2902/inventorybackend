@@ -12,6 +12,7 @@ public class    EmployeeDTO {
     private String role;  // Role as a string representation (e.g., "WAREHOUSE STAFF", "MANAGER", "SALESPERSON")
     private LocalDate hireDate;
     private Double salary;
+    private String shift;
     private String status;  // e.g., "ACTIVE", "ON LEAVE"
 
     // Getters and Setters
@@ -30,6 +31,14 @@ public class    EmployeeDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public String getEmail() {

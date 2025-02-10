@@ -27,6 +27,7 @@ public class Employee {
 
     private LocalDate hireDate;
     private Double salary;
+    private String shift;
     private String status;  // e.g., active, on leave
 
     private LocalDateTime updatedTime;
@@ -64,6 +65,14 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public String getEmail() {

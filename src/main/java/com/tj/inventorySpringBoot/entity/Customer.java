@@ -1,5 +1,6 @@
 package com.tj.inventorySpringBoot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tj.inventorySpringBoot.enums.CustomerType;
 import com.tj.inventorySpringBoot.enums.Status;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Setter
@@ -51,6 +53,10 @@ public class Customer {
     protected void onUpdate() {
         this.updatedTime = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Payment> payments;
 
     public Long getCustomerId() {
         return customerId;
@@ -146,5 +152,13 @@ public class Customer {
 
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }

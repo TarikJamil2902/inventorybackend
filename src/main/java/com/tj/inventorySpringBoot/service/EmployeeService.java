@@ -51,6 +51,7 @@ public class EmployeeService {
 
             employee.setHireDate(employeeDTO.getHireDate());
             employee.setSalary(employeeDTO.getSalary());
+            employee.setShift(employeeDTO.getShift());
             employee.setStatus(employeeDTO.getStatus());
 
             Employee updatedEmployee = employeeRepository.save(employee);
@@ -97,6 +98,7 @@ public class EmployeeService {
 
         employee.setHireDate(employeeDTO.getHireDate());
         employee.setSalary(employeeDTO.getSalary());
+        employee.setShift(employeeDTO.getShift());
         employee.setStatus(employeeDTO.getStatus());
 
         return employee;
@@ -117,6 +119,7 @@ public class EmployeeService {
 
         employeeDTO.setHireDate(employee.getHireDate());
         employeeDTO.setSalary(employee.getSalary());
+        employeeDTO.setShift(employee.getShift());
         employeeDTO.setStatus(employee.getStatus());
 
         return employeeDTO;

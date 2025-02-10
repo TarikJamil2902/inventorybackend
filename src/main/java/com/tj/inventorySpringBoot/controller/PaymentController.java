@@ -10,21 +10,21 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
-@RequestMapping("/payments")
+@RequestMapping("/api/payments")
 public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
 
     // Endpoint to create a new payment
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
         PaymentDTO createdPayment = paymentService.createPayment(paymentDTO);
         return ResponseEntity.ok(createdPayment);
     }
 
     // Endpoint to update an existing payment
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<PaymentDTO> updatePayment(@PathVariable Long id, @RequestBody PaymentDTO paymentDTO) {
         PaymentDTO updatedPayment = paymentService.updatePayment(id, paymentDTO);
         if (updatedPayment != null) {
@@ -51,7 +51,7 @@ public class PaymentController {
     }
 
     // Endpoint to delete a payment by its ID
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
         paymentService.deletePayment(id);
         return ResponseEntity.noContent().build(); // 204 No Content on successful deletion

@@ -1,8 +1,13 @@
 package com.tj.inventorySpringBoot.service;
 
 import com.tj.inventorySpringBoot.dto.PaymentDTO;
+import com.tj.inventorySpringBoot.entity.Customer;
+import com.tj.inventorySpringBoot.entity.Order;
 import com.tj.inventorySpringBoot.entity.Payment;
+import com.tj.inventorySpringBoot.repository.CustomerRepository;
+import com.tj.inventorySpringBoot.repository.OrderRepository;
 import com.tj.inventorySpringBoot.repository.PaymentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +22,12 @@ public class PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     // Method to create a new payment
     public PaymentDTO createPayment(PaymentDTO paymentDTO) {
@@ -36,9 +47,17 @@ public class PaymentService {
             payment.setCurrency(paymentDTO.getCurrency());
             payment.setTransactionId(paymentDTO.getTransactionId());
 
-            // Optionally, you can also update orderId and customerId if required
-            // Here, we assume that the associated Order and Customer are already set in the DTO
+            if (paymentDTO.getOrderId() != null) {
+                Order order = orderRepository.findById(paymentDTO.getOrderId())
+                        .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+                payment.setOrder(order);
+            }
 
+            if (paymentDTO.getCustomerId() != null) {
+                Customer customer = customerRepository.findById(paymentDTO.getCustomerId())
+                        .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+                payment.setCustomer(customer);
+            }
             Payment updatedPayment = paymentRepository.save(payment);
             return convertToDTO(updatedPayment);
         }
@@ -74,6 +93,17 @@ public class PaymentService {
         payment.setPaymentStatus(paymentDTO.getPaymentStatus());
         payment.setCurrency(paymentDTO.getCurrency());
         payment.setTransactionId(paymentDTO.getTransactionId());
+        if (paymentDTO.getCustomerId() != null) {
+            Customer customer = customerRepository.findById(paymentDTO.getCustomerId())
+                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+            payment.setCustomer(customer);
+        }
+
+        if (paymentDTO.getOrderId() != null) {
+            Order order = orderRepository.findById(paymentDTO.getOrderId())
+                    .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+            payment.setOrder(order);
+        }
 
         // Fetch Order and Customer by their IDs
         // For now, we're not setting these fields directly in this method,

@@ -35,7 +35,7 @@ public class ProductController {
 //        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
 //    }
 
-    @PostMapping("/create")
+    @PostMapping
     public ProductDTO createProduct(
 
             @RequestParam (required = false) String name,
@@ -88,7 +88,7 @@ return null;
     }
 
     // Endpoint to update an existing product
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
         if (updatedProduct != null) {
@@ -115,7 +115,7 @@ return null;
     }
 
     // Endpoint to delete a product by its ID
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // No content to return
