@@ -54,9 +54,9 @@ public class Customer {
         this.updatedTime = LocalDateTime.now();
     }
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Payment> payments;
+//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<Payment> payments;
 
     public Long getCustomerId() {
         return customerId;
@@ -154,11 +154,11 @@ public class Customer {
         this.updatedTime = updatedTime;
     }
 
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
-    }
+//    public List<Payment> getPayments() {
+//        return payments;
+//    }
+//
+//    public void setPayments(List<Payment> payments) {
+//        this.payments = payments;
+//    }
 }

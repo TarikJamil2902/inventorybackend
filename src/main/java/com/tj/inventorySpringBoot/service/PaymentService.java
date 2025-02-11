@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,20 +46,14 @@ public class PaymentService {
             payment.setPaymentMethod(paymentDTO.getPaymentMethod());
             payment.setPaymentStatus(paymentDTO.getPaymentStatus());
             payment.setCurrency(paymentDTO.getCurrency());
+            payment.setCustomerId(paymentDTO.getCustomerId());
+            payment.setOrderId(paymentDTO.getOrderId());
             payment.setTransactionId(paymentDTO.getTransactionId());
             payment.setPaymentDate(paymentDTO.getPaymentDate());
+            payment.setPaymentId(paymentDTO.getPaymentId());
 
-            if (paymentDTO.getOrderId() != null) {
-                Order order = orderRepository.findById(paymentDTO.getOrderId())
-                        .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-                payment.setOrder(order);
-            }
 
-            if (paymentDTO.getCustomerId() != null) {
-                Customer customer = customerRepository.findById(paymentDTO.getCustomerId())
-                        .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-                payment.setCustomer(customer);
-            }
+
             Payment updatedPayment = paymentRepository.save(payment);
             return convertToDTO(updatedPayment);
         }
@@ -94,19 +89,10 @@ public class PaymentService {
         payment.setPaymentStatus(paymentDTO.getPaymentStatus());
         payment.setCurrency(paymentDTO.getCurrency());
         payment.setPaymentDate(paymentDTO.getPaymentDate());
-
+        payment.setOrderId(paymentDTO.getOrderId());
         payment.setTransactionId(paymentDTO.getTransactionId());
-        if (paymentDTO.getCustomerId() != null) {
-            Customer customer = customerRepository.findById(paymentDTO.getCustomerId())
-                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-            payment.setCustomer(customer);
-        }
+        payment.setCustomerId(paymentDTO.getCustomerId());
 
-        if (paymentDTO.getOrderId() != null) {
-            Order order = orderRepository.findById(paymentDTO.getOrderId())
-                    .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-            payment.setOrder(order);
-        }
 
         // Fetch Order and Customer by their IDs
         // For now, we're not setting these fields directly in this method,
@@ -123,16 +109,14 @@ public class PaymentService {
         paymentDTO.setPaymentStatus(payment.getPaymentStatus());
         paymentDTO.setCurrency(payment.getCurrency());
         paymentDTO.setPaymentDate(payment.getPaymentDate());
+        paymentDTO.setCustomerId(payment.getCustomerId());
+        paymentDTO.setTransactionId(payment.getTransactionId());
+        paymentDTO.setOrderId(payment.getOrderId());
 
         paymentDTO.setTransactionId(payment.getTransactionId());
 
         // Optionally set orderId and customerId if needed
-        if (payment.getOrder() != null) {
-            paymentDTO.setOrderId(payment.getOrder().getOrderId());
-        }
-        if (payment.getCustomer() != null) {
-            paymentDTO.setCustomerId(payment.getCustomer().getCustomerId());
-        }
+
 
         return paymentDTO;
     }

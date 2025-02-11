@@ -2,12 +2,13 @@ package com.tj.inventorySpringBoot.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PaymentDTO {
 
     private Long paymentId;
-    private Long orderId;       // Reference to the Order ID
-    private Long customerId;    // Reference to the Customer ID
+    private String orderId;       // Reference to the Order ID
+    private String customerId;   // Reference to the Customer ID
     private Double amount;
     private String paymentMethod;  // e.g., "Credit Card", "PayPal"
     private String paymentStatus;  // e.g., "COMPLETED", "PENDING", "REFUNDED"
@@ -26,19 +27,20 @@ public class PaymentDTO {
         this.paymentId = paymentId;
     }
 
-    public Long getOrderId() {
+
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

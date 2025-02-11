@@ -10,7 +10,7 @@ public class ReportDTO {
     private LocalDate startDate;  // Start date for the report period
     private LocalDate endDate;  // End date for the report period
     private LocalDateTime generatedAt;  // Timestamp when the report was generated
-    private Long generatedByEmployeeId;  // ID of the Employee who generated the report
+    private String generatedByEmployeeId;  // ID of the Employee who generated the report
     private String data;  // Report content in JSON or another format
     private String createdByUserName;  // Username of the user who created the report
 
@@ -56,11 +56,11 @@ public class ReportDTO {
         this.generatedAt = generatedAt;
     }
 
-    public Long getGeneratedByEmployeeId() {
+    public String getGeneratedByEmployeeId() {
         return generatedByEmployeeId;
     }
 
-    public void setGeneratedByEmployeeId(Long generatedByEmployeeId) {
+    public void setGeneratedByEmployeeId(String generatedByEmployeeId) {
         this.generatedByEmployeeId = generatedByEmployeeId;
     }
 

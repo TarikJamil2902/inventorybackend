@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 public class ReturnDTO {
 
     private Long returnId;
-    private Long customerOrderId; // ID of the associated customer order (if applicable)
-    private Long supplierReturnId; // ID of the associated supplier return (if applicable)
+    private String customerOrderId; // ID of the associated customer order (if applicable)
     private String reasonForReturn; // Reason for the return (e.g., defective, wrong item)
     private LocalDate returnDate; // Date of the return
     private String returnStatus; // Status of the return (e.g., pending, processed)
@@ -26,20 +25,13 @@ public class ReturnDTO {
         this.returnId = returnId;
     }
 
-    public Long getCustomerOrderId() {
+
+    public String getCustomerOrderId() {
         return customerOrderId;
     }
 
-    public void setCustomerOrderId(Long customerOrderId) {
+    public void setCustomerOrderId(String customerOrderId) {
         this.customerOrderId = customerOrderId;
-    }
-
-    public Long getSupplierReturnId() {
-        return supplierReturnId;
-    }
-
-    public void setSupplierReturnId(Long supplierReturnId) {
-        this.supplierReturnId = supplierReturnId;
     }
 
     public String getReasonForReturn() {

@@ -7,20 +7,19 @@ public class OrderDTO {
     private Long orderId;
     private String customerName;
     private String customerContact;
-    private List<Long> orderItemIds;
+    private String orderItemIds;
     private Double totalAmount;
     private String status;  // Order status as a string (e.g., "PENDING", "COMPLETED", "CANCELLED")
 
-    private Long customerId;
-    private Long shipmentId;
-    private Long employeeId;
+    private String customerId;
+    private String shipmentId;
+    private String employeeId;
     private String shippingAddress;
     private String billingAddress;
     private String shippingMethod;
     private String paymentStatus;
 
     // Getters and Setters
-
 
     public Long getOrderId() {
         return orderId;
@@ -46,11 +45,11 @@ public class OrderDTO {
         this.customerContact = customerContact;
     }
 
-    public List<Long> getOrderItemIds() {
+    public String getOrderItemIds() {
         return orderItemIds;
     }
 
-    public void setOrderItemIds(List<Long> orderItemIds) {
+    public void setOrderItemIds(String orderItemIds) {
         this.orderItemIds = orderItemIds;
     }
 
@@ -70,27 +69,27 @@ public class OrderDTO {
         this.status = status;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
-    public Long getShipmentId() {
+    public String getShipmentId() {
         return shipmentId;
     }
 
-    public void setShipmentId(Long shipmentId) {
+    public void setShipmentId(String shipmentId) {
         this.shipmentId = shipmentId;
     }
 
-    public Long getEmployeeId() {
+    public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 

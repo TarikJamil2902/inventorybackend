@@ -38,7 +38,7 @@ public class ShipmentService {
 
             // Update shipment details
             existingShipment.setTrackingNumber(shipmentDTO.getTrackingNumber());
-            
+
             existingShipment.setCarrierName(shipmentDTO.getCarrierName());
             existingShipment.setShippingDate(shipmentDTO.getShippingDate());
             existingShipment.setDeliveryDate(shipmentDTO.getDeliveryDate());

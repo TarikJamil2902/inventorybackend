@@ -29,63 +29,63 @@ public class ProductController {
     private FileDataService fileDataService;
 
     // Endpoint to create a new product
-//    @PostMapping("/create")
-//    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
-//        ProductDTO createdProduct = productService.createProduct(productDTO);
-//        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
-//    }
-
     @PostMapping
-    public ProductDTO createProduct(
-
-            @RequestParam (required = false) String name,
-            @RequestParam (required = false) String description,
-            @RequestParam (required = false) String size,
-            @RequestParam (required = false) String color,
-            @RequestParam (required = false) String brand,
-            @RequestParam (required = false) Double unitPrice,
-            @RequestParam (required = false) Double costPrice,
-            @RequestParam (required = false) Integer quantityInStock,
-            @RequestParam (required = false) Integer reorderLevel,
-            @RequestParam (required = false) String barcode,
-            @RequestParam (required = false) String status,
-            @RequestParam (required = false) String imageUrl,
-            @RequestParam (required = false) MultipartFile[] fileDatas
-
-
-
-            ) throws IOException {
-
-        try {
-            Product pro = new Product();
-            pro.setName(name);
-            pro.setDescription(description);
-            pro.setSize(size);
-            pro.setColor(color);
-            pro.setBrand(brand);
-            pro.setUnitPrice(unitPrice);
-            pro.setCostPrice(costPrice);
-            pro.setQuantityInStock(quantityInStock);
-            pro.setReorderLevel(reorderLevel);
-            pro.setBarcode(barcode);
-            pro.setStatus(status);
-
-            List<FileData> fileData = new ArrayList<>();
-            for (MultipartFile multipartFile : fileDatas) {
-                FileData fileData1 = fileDataService.uploadFile(multipartFile);
-                fileData.add(fileData1);
-            }
-            pro.setFileDatas(fileData);
-
-            pro = productRepository.save(pro);
-
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-return null;
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        ProductDTO createdProduct = productService.createProduct(productDTO);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
+
+//    @PostMapping
+//    public ProductDTO createProduct(
+//
+//            @RequestParam (required = false) String name,
+//            @RequestParam (required = false) String description,
+//            @RequestParam (required = false) String size,
+//            @RequestParam (required = false) String color,
+//            @RequestParam (required = false) String brand,
+//            @RequestParam (required = false) Double unitPrice,
+//            @RequestParam (required = false) Double costPrice,
+//            @RequestParam (required = false) Integer quantityInStock,
+//            @RequestParam (required = false) Integer reorderLevel,
+//            @RequestParam (required = false) String barcode,
+//            @RequestParam (required = false) String status
+////            @RequestParam (required = false) String imageUrl,
+////            @RequestParam (required = false) MultipartFile[] fileDatas
+//
+//
+//
+//            ) throws IOException {
+//
+//        try {
+//            Product pro = new Product();
+//            pro.setName(name);
+//            pro.setDescription(description);
+//            pro.setSize(size);
+//            pro.setColor(color);
+//            pro.setBrand(brand);
+//            pro.setUnitPrice(unitPrice);
+//            pro.setCostPrice(costPrice);
+//            pro.setQuantityInStock(quantityInStock);
+//            pro.setReorderLevel(reorderLevel);
+//            pro.setBarcode(barcode);
+//            pro.setStatus(status);
+//
+////            List<FileData> fileData = new ArrayList<>();
+////            for (MultipartFile multipartFile : fileDatas) {
+////                FileData fileData1 = fileDataService.uploadFile(multipartFile);
+////                fileData.add(fileData1);
+////            }
+////            pro.setFileDatas(fileData);
+//
+//            pro = productRepository.save(pro);
+//
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//return null;
+//    }
 
     // Endpoint to update an existing product
     @PutMapping("/{id}")

@@ -20,7 +20,7 @@ public class NotificationController {
     private NotificationService notificationService;
 
     // Endpoint to create a new notification
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<NotificationDTO> createNotification(@RequestBody NotificationDTO notificationDTO) {
         NotificationDTO savedNotification = notificationService.createNotification(notificationDTO);
         return new ResponseEntity<>(savedNotification, HttpStatus.CREATED);
@@ -44,7 +44,7 @@ public class NotificationController {
     }
 
     // Endpoint to update an existing notification
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<NotificationDTO> updateNotification(@PathVariable Long id, @RequestBody NotificationDTO notificationDTO) {
         NotificationDTO updatedNotification = notificationService.updateNotification(id, notificationDTO);
         if (updatedNotification != null) {
@@ -64,7 +64,7 @@ public class NotificationController {
     }
 
     // Endpoint to delete a notification by its ID
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNotification(@PathVariable Long id) {
         notificationService.deleteNotification(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Return 204 No Content for successful deletion

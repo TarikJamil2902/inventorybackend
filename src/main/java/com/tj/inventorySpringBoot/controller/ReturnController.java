@@ -17,7 +17,7 @@ public class ReturnController {
     private ReturnService returnService;
 
     // Create a new return
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<ReturnDTO> createReturn(@RequestBody ReturnDTO returnDTO) {
         ReturnDTO createdReturn = returnService.createReturn(returnDTO);
         return ResponseEntity.ok(createdReturn);

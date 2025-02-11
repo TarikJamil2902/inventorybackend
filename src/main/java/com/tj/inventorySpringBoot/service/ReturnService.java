@@ -50,22 +50,24 @@ private CustomerRepository customerRepository;
             existingReturn.setAmountRefunded(returnDTO.getAmountRefunded());
             existingReturn.setReturnType(returnDTO.getReturnType());
             existingReturn.setRefundMethod(returnDTO.getRefundMethod());
+            existingReturn.setCustomerOrderId(returnDTO.getCustomerOrderId());
+            existingReturn.setReturnId(returnDTO.getReturnId());
 
             // Update associated customer order
-            if (returnDTO.getCustomerOrderId() != null) {
-                Order customerOrder = orderRepository.findById(returnDTO.getCustomerOrderId()).orElse(null);
-                existingReturn.setCustomerOrder(customerOrder);
-            } else {
-                existingReturn.setCustomerOrder(null);
-            }
-
-            // Update associated supplier return
-            if (returnDTO.getSupplierReturnId() != null) {
-                PurchaseOrder supplierReturn = purchaseOrderRepository.findById(returnDTO.getSupplierReturnId()).orElse(null);
-                existingReturn.setSupplierReturn(supplierReturn);
-            } else {
-                existingReturn.setSupplierReturn(null);
-            }
+//            if (returnDTO.getCustomerOrderId() != null) {
+//                Order customerOrder = orderRepository.findById(returnDTO.getCustomerOrderId()).orElse(null);
+//                existingReturn.setCustomerOrder(customerOrder);
+//            } else {
+//                existingReturn.setCustomerOrder(null);
+//            }
+//
+//            // Update associated supplier return
+//            if (returnDTO.getSupplierReturnId() != null) {
+//                PurchaseOrder supplierReturn = purchaseOrderRepository.findById(returnDTO.getSupplierReturnId()).orElse(null);
+//                existingReturn.setSupplierReturn(supplierReturn);
+//            } else {
+//                existingReturn.setSupplierReturn(null);
+//            }
 
             Return updatedReturn = returnRepository.save(existingReturn);
             return convertToDTO(updatedReturn);
@@ -100,19 +102,20 @@ private CustomerRepository customerRepository;
         returnEntity.setReturnStatus(returnDTO.getReturnStatus());
         returnEntity.setAmountRefunded(returnDTO.getAmountRefunded());
         returnEntity.setReturnType(returnDTO.getReturnType());
+        returnEntity.setCustomerOrderId(returnDTO.getCustomerOrderId());
         returnEntity.setRefundMethod(returnDTO.getRefundMethod());
 
         // Set the associated customer order if it exists
-        if (returnDTO.getCustomerOrderId() != null) {
-            Order customerOrder = orderRepository.findById(returnDTO.getCustomerOrderId()).orElse(null);
-            returnEntity.setCustomerOrder(customerOrder);
-        }
-
-        // Set the associated supplier return if it exists
-        if (returnDTO.getSupplierReturnId() != null) {
-            PurchaseOrder supplierReturn = purchaseOrderRepository.findById(returnDTO.getSupplierReturnId()).orElse(null);
-            returnEntity.setSupplierReturn(supplierReturn);
-        }
+//        if (returnDTO.getCustomerOrderId() != null) {
+//            Order customerOrder = orderRepository.findById(returnDTO.getCustomerOrderId()).orElse(null);
+//            returnEntity.setCustomerOrder(customerOrder);
+//        }
+//
+//        // Set the associated supplier return if it exists
+//        if (returnDTO.getSupplierReturnId() != null) {
+//            PurchaseOrder supplierReturn = purchaseOrderRepository.findById(returnDTO.getSupplierReturnId()).orElse(null);
+//            returnEntity.setSupplierReturn(supplierReturn);
+//        }
 
         return returnEntity;
     }
@@ -127,17 +130,19 @@ private CustomerRepository customerRepository;
         returnDTO.setReturnStatus(returnEntity.getReturnStatus());
         returnDTO.setAmountRefunded(returnEntity.getAmountRefunded());
         returnDTO.setReturnType(returnEntity.getReturnType());
+        returnDTO.setCustomerOrderId(returnEntity.getCustomerOrderId());
         returnDTO.setRefundMethod(returnEntity.getRefundMethod());
 
-        // Set the customer order ID if it exists
-        if (returnEntity.getCustomerOrder() != null) {
-            returnDTO.setCustomerOrderId(returnEntity.getCustomerOrder().getOrderId());
-        }
 
-        // Set the supplier return ID if it exists
-        if (returnEntity.getSupplierReturn() != null) {
-            returnDTO.setSupplierReturnId(returnEntity.getSupplierReturn().getPurchaseOrderId());
-        }
+        // Set the customer order ID if it exists
+//        if (returnEntity.getCustomerOrder() != null) {
+//            returnDTO.setCustomerOrderId(returnEntity.getCustomerOrder().getOrderId());
+//        }
+//
+//        // Set the supplier return ID if it exists
+//        if (returnEntity.getSupplierReturn() != null) {
+//            returnDTO.setSupplierReturnId(returnEntity.getSupplierReturn().getPurchaseOrderId());
+//        }
 
         return returnDTO;
     }

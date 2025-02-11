@@ -19,40 +19,40 @@ public class Order {
     private String customerContact;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "orderOrderItems",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_item_id")
-    )
-    private Set<OrderItem> orderItems;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "orderOrderItems",
+//            joinColumns = @JoinColumn(name = "order_id"),
+//            inverseJoinColumns = @JoinColumn(name = "order_item_id")
+//    )
+    private String orderItemIds;
 
 
     private Double totalAmount;
 
-    @OneToMany
-    private List<Tax> taxes; // Taxes applied to this order
+//    @OneToMany
+    private String taxes; // Taxes applied to this order
 
 
     private String status; // e.g., PENDING, COMPLETED, CANCELLED
 
     private LocalDateTime orderDate;
 
-    @ManyToOne
-    @JoinColumn
-    private Discount discount;
+//    @ManyToOne
+//    @JoinColumn
+    private String discountId;
 
-    @ManyToOne
-    @JoinColumn
-    private Customer customer; // Customer related to the order
+//    @ManyToOne
+//    @JoinColumn
+    private String customerId; // Customer related to the order
 
-    @ManyToOne
-    @JoinColumn
-    private Shipment shipment; // Shipment details for the order
+//    @ManyToOne
+//    @JoinColumn
+    private String shipmentId; // Shipment details for the order
 
-    @ManyToOne
-    @JoinColumn
-    private Employee employee; // Employee responsible for the order
+//    @ManyToOne
+//    @JoinColumn
+    private String employeeId; // Employee responsible for the order
 
     private String shippingAddress;
     private String billingAddress;
@@ -101,6 +101,13 @@ public class Order {
         this.customerContact = customerContact;
     }
 
+    public String getOrderItemIds() {
+        return orderItemIds;
+    }
+
+    public void setOrderItemIds(String orderItemIds) {
+        this.orderItemIds = orderItemIds;
+    }
 
     public Double getTotalAmount() {
         return totalAmount;
@@ -110,11 +117,11 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public List<Tax> getTaxes() {
+    public String getTaxes() {
         return taxes;
     }
 
-    public void setTaxes(List<Tax> taxes) {
+    public void setTaxes(String taxes) {
         this.taxes = taxes;
     }
 
@@ -134,44 +141,36 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Discount getDiscount() {
-        return discount;
+    public String getDiscountId() {
+        return discountId;
     }
 
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
+    public void setDiscountId(String discountId) {
+        this.discountId = discountId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public Shipment getShipment() {
-        return shipment;
+    public String getShipmentId() {
+        return shipmentId;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+    public void setShipmentId(String shipmentId) {
+        this.shipmentId = shipmentId;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setShipment(Shipment shipment) {
-        this.shipment = shipment;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getShippingAddress() {

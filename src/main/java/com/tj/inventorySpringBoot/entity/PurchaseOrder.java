@@ -15,12 +15,11 @@ public class PurchaseOrder {
     @Column
     private Long purchaseOrderId; // Primary Key
 
-    @ManyToOne
-    @JoinColumn
-    private Supplier supplier; // Foreign Key to Supplier
 
-    @OneToMany
-    private List<PurchaseOrderItem> purchaseOrderItems; // Links to Order Items or Products
+    private String supplierId; // Foreign Key to Supplier
+
+
+    private String purchaseOrderItems; // Links to Order Items or Products
 
     private LocalDate orderDate;
     private LocalDate deliveryDate; // New field for delivery date
@@ -32,9 +31,8 @@ public class PurchaseOrder {
 
     private String paymentTerms; // New field for payment terms (e.g., "Net 30", "Cash on Delivery")
 
-    @ManyToOne
-    @JoinColumn
-    private Employee createdBy; // Foreign Key to Employee who created the order
+
+    private String createdBy; // Foreign Key to Employee who created the order
 
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -62,21 +60,8 @@ public class PurchaseOrder {
         this.purchaseOrderId = purchaseOrderId;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
 
-    public List<PurchaseOrderItem> getPurchaseOrderItems() {
-        return purchaseOrderItems;
-    }
-
-    public void setPurchaseOrderItems(List<PurchaseOrderItem> purchaseOrderItems) {
-        this.purchaseOrderItems = purchaseOrderItems;
-    }
 
     public LocalDate getOrderDate() {
         return orderDate;
@@ -118,13 +103,6 @@ public class PurchaseOrder {
         this.paymentTerms = paymentTerms;
     }
 
-    public Employee getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Employee createdBy) {
-        this.createdBy = createdBy;
-    }
 
     public LocalDateTime getCreatedTime() {
         return createdTime;
@@ -132,6 +110,30 @@ public class PurchaseOrder {
 
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getPurchaseOrderItems() {
+        return purchaseOrderItems;
+    }
+
+    public void setPurchaseOrderItems(String purchaseOrderItems) {
+        this.purchaseOrderItems = purchaseOrderItems;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public LocalDateTime getUpdatedTime() {

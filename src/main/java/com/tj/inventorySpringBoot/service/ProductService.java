@@ -3,6 +3,7 @@ package com.tj.inventorySpringBoot.service;
 import com.tj.inventorySpringBoot.dto.ProductDTO;
 import com.tj.inventorySpringBoot.entity.Category;
 import com.tj.inventorySpringBoot.entity.Product;
+import com.tj.inventorySpringBoot.entity.Supplier;
 import com.tj.inventorySpringBoot.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class ProductService {
             product.setSize(productDTO.getSize());
             product.setColor(productDTO.getColor());
             product.setBrand(productDTO.getBrand());
-            product.setPrice(productDTO.getUnitPrice());  // Updated field for unit price
+            product.setUnitPrice(productDTO.getUnitPrice());  // Updated field for unit price
             product.setCostPrice(productDTO.getCostPrice());  // Updated field for cost price
             product.setQuantityInStock(productDTO.getQuantityInStock());  // Updated field for quantity in stock
             product.setReorderLevel(productDTO.getReorderLevel());  // Updated field for reorder level
@@ -43,7 +44,7 @@ public class ProductService {
             product.setBarcode(productDTO.getBarcode());  // Updated field for barcode
             product.setStatus(productDTO.getStatus());  // Updated field for status
             product.setProductId(productDTO.getProductId());  // Updated field for product ID
-            product.setProductId(productDTO.getProductId());  // Updated field for product ID
+              // Updated field for product ID
             // Update category if provided
             if (productDTO.getCategoryId() != null) {
                 Category category = new Category();
@@ -86,7 +87,7 @@ public class ProductService {
         product.setSize(productDTO.getSize());
         product.setColor(productDTO.getColor());
         product.setBrand(productDTO.getBrand());
-        product.setPrice(productDTO.getUnitPrice());  // Updated field for unit price
+        product.setUnitPrice(productDTO.getUnitPrice());  // Updated field for unit price
         product.setCostPrice(productDTO.getCostPrice());  // Updated field for cost price
         product.setQuantityInStock(productDTO.getQuantityInStock());  // Updated field for quantity in stock
         product.setReorderLevel(productDTO.getReorderLevel());  // Updated field for reorder level
@@ -99,6 +100,12 @@ public class ProductService {
             Category category = new Category();
             category.setCategoryId(productDTO.getCategoryId());
             product.setCategory(category);
+        }
+
+        if (productDTO.getSupplierId() != null) {
+            Supplier supplier = new Supplier();
+            supplier.setSupplierId(productDTO.getSupplierId());
+            product.setSupplier(supplier);
         }
         return product;
     }
@@ -123,6 +130,9 @@ public class ProductService {
         // Set categoryId from associated category
         if (product.getCategory() != null) {
             productDTO.setCategoryId(product.getCategory().getCategoryId());
+        }
+        if (product.getSupplier() != null) {
+            productDTO.setSupplierId(product.getSupplier().getSupplierId());
         }
         return productDTO;
     }

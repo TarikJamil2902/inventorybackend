@@ -14,13 +14,10 @@ public class Return {
     @Column
     private Long returnId;
 
-    @ManyToOne
-    @JoinColumn
-    private Order customerOrder; // If it's a customer return
 
-    @ManyToOne
-    @JoinColumn
-    private PurchaseOrder supplierReturn; // If it's a supplier return
+    private String customerOrderId; // If it's a customer return
+
+
 
     @Column
     private String reason; // Reason for the return (e.g., defective, wrong item)
@@ -73,20 +70,12 @@ public class Return {
         this.quantity = quantity;
     }
 
-    public Order getCustomerOrder() {
-        return customerOrder;
+    public String getCustomerOrderId() {
+        return customerOrderId;
     }
 
-    public void setCustomerOrder(Order customerOrder) {
-        this.customerOrder = customerOrder;
-    }
-
-    public PurchaseOrder getSupplierReturn() {
-        return supplierReturn;
-    }
-
-    public void setSupplierReturn(PurchaseOrder supplierReturn) {
-        this.supplierReturn = supplierReturn;
+    public void setCustomerOrderId(String customerOrderId) {
+        this.customerOrderId = customerOrderId;
     }
 
     public String getReason() {

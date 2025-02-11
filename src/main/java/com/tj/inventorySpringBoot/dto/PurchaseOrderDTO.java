@@ -7,15 +7,15 @@ import java.util.List;
 public class PurchaseOrderDTO {
 
     private Long purchaseOrderId;  // Corresponds to purchase_order_id in the entity
-    private Long supplierId;  // Reference to the Supplier ID
-    private List<Long> purchaseOrderItemIds;
+    private String supplierId;  // Reference to the Supplier ID
+    private String purchaseOrderItems;
     // List of IDs of PurchaseOrderItems
     private LocalDate orderDate;  // Order date
     private LocalDate deliveryDate;  // New field for delivery date
     private String status;  // Status as a string (e.g., "PENDING", "RECEIVED")
     private Double totalAmount;  // Total amount for the order
     private String paymentTerms;  // Payment terms (e.g., "Net 30", "COD")
-
+    private String createdBy;
 
     // Getters and Setters
 
@@ -27,21 +27,6 @@ public class PurchaseOrderDTO {
         this.purchaseOrderId = purchaseOrderId;
     }
 
-    public Long getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public List<Long> getPurchaseOrderItemIds() {
-        return purchaseOrderItemIds;
-    }
-
-    public void setPurchaseOrderItemIds(List<Long> purchaseOrderItemIds) {
-        this.purchaseOrderItemIds = purchaseOrderItemIds;
-    }
 
     public LocalDate getOrderDate() {
         return orderDate;
@@ -83,5 +68,27 @@ public class PurchaseOrderDTO {
         this.paymentTerms = paymentTerms;
     }
 
+    public String getSupplierId() {
+        return supplierId;
+    }
 
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getPurchaseOrderItems() {
+        return purchaseOrderItems;
+    }
+
+    public void setPurchaseOrderItems(String purchaseOrderItems) {
+        this.purchaseOrderItems = purchaseOrderItems;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 }

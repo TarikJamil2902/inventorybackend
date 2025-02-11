@@ -20,16 +20,13 @@ public class Report {
 
     private LocalDateTime generatedAt;  // Timestamp when the report was generated
 
-    @ManyToOne
-    @JoinColumn  // Linking to Employee entity (assuming Employee entity exists)
-    private Employee generatedBy;
+    private String generatedByEmployeeId;
 
     @Lob  // Large object, assuming the content is stored as JSON or other formats
     private String data;  // Report content in JSON or another format
 
-    @ManyToOne
-    @JoinColumn // Link to the User entity for the creator
-    private User createdBy;
+
+    private String createdByUserName;
 
     private LocalDateTime createdTime;
 
@@ -79,13 +76,6 @@ public class Report {
         this.generatedAt = generatedAt;
     }
 
-    public Employee getGeneratedBy() {
-        return generatedBy;
-    }
-
-    public void setGeneratedBy(Employee generatedBy) {
-        this.generatedBy = generatedBy;
-    }
 
     public String getData() {
         return data;
@@ -95,13 +85,6 @@ public class Report {
         this.data = data;
     }
 
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
 
     public LocalDateTime getCreatedTime() {
         return createdTime;
@@ -111,5 +94,19 @@ public class Report {
         this.createdTime = createdTime;
     }
 
+    public String getGeneratedByEmployeeId() {
+        return generatedByEmployeeId;
+    }
 
+    public void setGeneratedByEmployeeId(String generatedByEmployeeId) {
+        this.generatedByEmployeeId = generatedByEmployeeId;
+    }
+
+    public String getCreatedByUserName() {
+        return createdByUserName;
+    }
+
+    public void setCreatedByUserName(String createdByUserName) {
+        this.createdByUserName = createdByUserName;
+    }
 }

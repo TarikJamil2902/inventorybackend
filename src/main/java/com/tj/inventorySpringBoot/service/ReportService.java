@@ -47,14 +47,10 @@ public class ReportService {
             existingReport.setEndDate(reportDTO.getEndDate());
             existingReport.setGeneratedAt(reportDTO.getGeneratedAt());
             existingReport.setData(reportDTO.getData());
+            existingReport.setCreatedByUserName(reportDTO.getCreatedByUserName());
+            existingReport.setGeneratedByEmployeeId(reportDTO.getGeneratedByEmployeeId());
 
-            // Update the generatedBy employee
-            Employee generatedByEmployee = employeeRepository.findById(reportDTO.getGeneratedByEmployeeId()).orElse(null);
-            existingReport.setGeneratedBy(generatedByEmployee);
 
-            // Update the createdBy user
-            User createdByUser = userRepository.findByUserName(reportDTO.getCreatedByUserName()).orElse(null);
-            existingReport.setCreatedBy(createdByUser);
 
             Report updatedReport = reportRepository.save(existingReport);
             return convertToDTO(updatedReport);
@@ -91,14 +87,10 @@ public class ReportService {
         report.setEndDate(reportDTO.getEndDate());
         report.setGeneratedAt(reportDTO.getGeneratedAt());
         report.setData(reportDTO.getData());
+        report.setGeneratedByEmployeeId(reportDTO.getGeneratedByEmployeeId());
+        report.setCreatedByUserName(reportDTO.getCreatedByUserName());
 
-        // Set the generatedBy employee from the Employee repository based on employee ID
-        Employee generatedByEmployee = employeeRepository.findById(reportDTO.getGeneratedByEmployeeId()).orElse(null);
-        report.setGeneratedBy(generatedByEmployee);
 
-        // Set the createdBy user from the User repository based on userName
-        User createdByUser = userRepository.findByUserName(reportDTO.getCreatedByUserName()).orElse(null);
-        report.setCreatedBy(createdByUser);
 
         return report;
     }
@@ -112,16 +104,10 @@ public class ReportService {
         reportDTO.setEndDate(report.getEndDate());
         reportDTO.setGeneratedAt(report.getGeneratedAt());
         reportDTO.setData(report.getData());
+        reportDTO.setCreatedByUserName(report.getCreatedByUserName());
+        reportDTO.setGeneratedByEmployeeId(report.getGeneratedByEmployeeId());
 
-        // Set generatedByEmployeeId from the generatedBy employee
-        if (report.getGeneratedBy() != null) {
-            reportDTO.setGeneratedByEmployeeId(report.getGeneratedBy().getEmployeeId());
-        }
 
-        // Set createdByUserName from the createdBy user
-        if (report.getCreatedBy() != null) {
-            reportDTO.setCreatedByUserName(report.getCreatedBy().getUserName());
-        }
 
         return reportDTO;
     }
